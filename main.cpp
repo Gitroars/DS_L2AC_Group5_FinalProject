@@ -16,6 +16,8 @@ class Graph {
   void addEdge(int src, int dest);
   void BFS(int startVertex);
 };
+  
+  
 
 // Create a graph with given vertices,
 // and maintain an adjacency list
@@ -23,12 +25,16 @@ Graph::Graph(int vertices) {
   numVertices = vertices;
   adjLists = new list<int>[vertices];
 }
+  
+  
 
 // Add edges to the graph
 void Graph::addEdge(int src, int dest) {
   adjLists[src].push_back(dest);
   adjLists[dest].push_back(src);
 }
+  
+  
 
 // BFS algorithm
 void Graph::BFS(int startVertex) {
@@ -58,6 +64,8 @@ void Graph::BFS(int startVertex) {
   }
 }
 
+  
+  
 int main() {
   Graph g(4);
   g.addEdge(0, 1);
