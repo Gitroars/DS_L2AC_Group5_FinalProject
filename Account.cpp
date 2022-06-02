@@ -1,3 +1,5 @@
+// REFERENCES
+// https://www.youtube.com/watch?v=nxHnnQToy5o&list=PL43pGnjiVwgQakzRxpt2amqN9f7-tRtc_&index=3
 //---------------------------------------------------------------------------
 
 #include <fmx.h>
@@ -5,6 +7,7 @@
 #include <string>
 #include <vector>
 #include <sstream>
+
 #pragma hdrstop
 
 #include "Account.h"
@@ -20,6 +23,8 @@ __fastcall TForm1::TForm1(TComponent* Owner)
 {
 }
 
+
+
 vector<string> parseCommaDelimitedString(string line){
 vector<string> result;
 stringstream s_stream(line);
@@ -31,7 +36,7 @@ result.push_back(substr);
 return result;
 }
 
-const char* converToCharPtr(AnsiString ansiStr){
+const char* convertCharToPtr(AnsiString ansiStr){
 return ansiStr.c_str();
 }
 
@@ -70,12 +75,12 @@ vector<string> parsedLine=parseCommaDelimitedString(line);
 
 const char* username = parsedLine.at(0).c_str();
 AnsiString editUsername = LoginUsernameEdit->Text;
-const char* usernameString = converToCharPtr(editUsername);
+const char* usernameString = convertCharToPtr(editUsername);
 bool validUsername = false;
 
 const char* password = parsedLine.at(1).c_str();
 AnsiString editPassword = LoginPasswordEdit->Text;
-const char* passwordString = converToCharPtr(editPassword);
+const char* passwordString = convertCharToPtr(editPassword);
 bool validPassword = false;
 
 if(strcmp(username,usernameString)==0){validUsername = true;}
@@ -86,12 +91,14 @@ if(validUsername && validPassword){
 }
 
 }
+}
 //---------------------------------------------------------------------------
 
+
+//---------------------------------------------------------------------------
+}
 void __fastcall TForm1::RegistrationPageButtonClick(TObject *Sender)
 {
 RegistrationPanel->Visible=true;
  LoginPanel->Visible=false;
 }
-//---------------------------------------------------------------------------
-
