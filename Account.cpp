@@ -1,6 +1,4 @@
-// REFERENCES
-// https://www.youtube.com/watch?v=nxHnnQToy5o&list=PL43pGnjiVwgQakzRxpt2amqN9f7-tRtc_&index=3
-//---------------------------------------------------------------------------
+
 
 #include <fmx.h>
 #include <fstream>
@@ -36,7 +34,7 @@ result.push_back(substr);
 return result;
 }
 
-const char* convertCharToPtr(AnsiString ansiStr){
+const char* convertCharPtr(AnsiString ansiStr){
 return ansiStr.c_str();
 }
 
@@ -75,17 +73,19 @@ vector<string> parsedLine=parseCommaDelimitedString(line);
 
 const char* username = parsedLine.at(0).c_str();
 AnsiString editUsername = LoginUsernameEdit->Text;
-const char* usernameString = convertCharToPtr(editUsername);
+const char* usernameString = convertCharPtr(editUsername);
 bool validUsername = false;
 
 const char* password = parsedLine.at(1).c_str();
 AnsiString editPassword = LoginPasswordEdit->Text;
-const char* passwordString = convertCharToPtr(editPassword);
+const char* passwordString = convertCharPtr(editPassword);
 bool validPassword = false;
 
 if(strcmp(username,usernameString)==0){validUsername = true;}
 if(strcmp(password,passwordString)==0){validPassword = true;}
 if(validUsername && validPassword){
+   LoginButton->Enabled=false;
+   RegistrationPageButton->Enabled=false;
    QuestForm->Show();
 
 }

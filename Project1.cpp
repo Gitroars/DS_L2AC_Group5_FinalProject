@@ -7,15 +7,14 @@
 #pragma hdrstop
 #include <System.StartUpCopy.hpp>
 //---------------------------------------------------------------------------
-USEFORM("Account.cpp", Form1);
 USEFORM("Quest.cpp", QuestForm);
+USEFORM("Account.cpp", Form1);
 //---------------------------------------------------------------------------
 extern "C" int FMXmain()
 {
 	try
 	{
 		Application->Initialize();
-		Application->CreateForm(__classid(TForm1), &Form1);
 		Application->CreateForm(__classid(TQuestForm), &QuestForm);
 		Application->Run();
 	}
