@@ -1,27 +1,45 @@
 //---------------------------------------------------------------------------
-#include <stdlib.h>
-#include <time.h>
+#include <stdlib.h> // for RNG
+#include <time.h>   // for RNG
 #include <fmx.h>
 #include <string>
 #include <array>
+#include <vector>
 #include <queue>
+#include <map>
 #include <fstream>
 #include <sstream>
+#include <iostream>
 #pragma hdrstop
 
 #include "Quest.h"
-
+#include "Robot.h"
 using namespace std;
 //---------------------------------------------------------------------------
 #pragma package(smart_init)
 #pragma resource "*.fmx"
 
 class Robot{
-   public:
-   Robot(){
+public:
+   Robot(){}
+   Robot(AnsiString name,int healthPoint,int meleeAttack, int shootingAttack,int defensePoint){
+    this->name = name;
+    this->healthPoint = healthPoint;
+	this->meleeAttack = meleeAttack;
+	this->shootingAttack = shootingAttack;
+	this->defensePoint = defensePoint;
+   }
+   AnsiString getName(){
+   return name;
+   }
+   void setName(AnsiString name){
+	this->name = name;
    }
    int getHealth(){
    return healthPoint;
+   }
+   void setHealth(int newHealth){
+   health = newHealth;
    }
    void addHealth(int heal){
    healthPoint += heal;
@@ -55,6 +73,7 @@ class Robot{
    mode = newMode;
    }
    protected:
+   AnsiString name;
    int healthPoint;
    int meleeAttack;
    int shootingAttack;
@@ -64,11 +83,11 @@ class Robot{
 };
 class Player: public Robot{
 	public:
-    Player(){}
+	Player(){}
 	Player(int healthPoint,int meleeAttack, int shootingAttack,int defensePoint){
 	Score = 0;
-    maxHealth = healthPoint;
-    this->healthPoint = healthPoint;
+	maxHealth = healthPoint;
+	this->healthPoint = healthPoint;
 	this->meleeAttack = meleeAttack;
 	this->shootingAttack = shootingAttack;
 	this->defensePoint = defensePoint;
@@ -98,21 +117,15 @@ class Player: public Robot{
 class Enemy: public Robot{
    public:
    Enemy(){}
-   Enemy(int healthPoint,int meleeAttack, int shootingAttack,int defensePoint  ){
-	name = "New Enemy";
+   Enemy(AnsiString name,int healthPoint,int meleeAttack, int shootingAttack,int defensePoint  ){
+	this->name = name;
 	this->healthPoint = healthPoint;
 	this->meleeAttack = meleeAttack;
 	this->shootingAttack = shootingAttack;
 	this->defensePoint = defensePoint;
    }
-   AnsiString getName(){
-   return name;
-   }
-   void setName(AnsiString name){
-	this->name = name;
-   }
-   private:
-   AnsiString name;
+
+
 
 
 
@@ -125,29 +138,161 @@ int shootingAttack = 15;
 int defensePoint = 15;
 
 
-Player player(healthPoint,meleeAttack,shootingAttack,defensePoint);
 
 
 
-queue<Enemy> LoadEnemies(){
-Enemy e1(30,15,15,15);
-e1.setName("Bandit");
-Enemy e2(40,20,20,20);
-e2.setName("Bandit Lieutenant");
-Enemy e3(50,25,25,25);
-e3.setName("Bandit Commander");
-queue<Enemy> enemies;
-enemies.push(e1);
-enemies.push(e2);
-enemies.push(e3);
-return enemies;
+
+//queue<Enemy> LoadEnemies(){
+//Enemy e1("Poring",30,15,15,15);
+//e1.setName("Bandit");
+//Enemy e2("Mastering",40,20,20,20);
+//e2.setName("Bandit Lieutenant");
+//Enemy e3("Poring King",50,25,25,25);
+//e3.setName("Bandit Commander");
+//queue<Enemy> enemies;
+//enemies.push(e1);
+//enemies.push(e2);
+//enemies.push(e3);
+//return enemies;
+//}
+
+
+
+
+
+// RNG Function which returns an int value based on (parameter input-1)
+int generateRandomNumber(int limit){
+srand(time(NULL));
+int randomNumber = rand()%limit;
+return randomNumber;
+}
+
+vector<string> parseCommaDelimitedString(string line){
+vector<string> result;
+stringstream s_stream(line);
+while(s_stream.good()){
+string substr;
+getline(s_stream,substr,',');
+result.push_back(substr);
+}
+return result;
+}
+
+vector<Robot> getRobots(){
+vector<Robot> temporaryVector;
+fstream robotDB;
+robotDB.open("robots.txt",ios::in); //Open the text file containing robots' specifications
+if(robotDB.is_open()){  //Upon successful opening,
+string line;
+while(getline(robotDB,line)){ //For each line,
+ vector<string> parsedLine = parseCommaDelimitedString(line); //Divide the line based on comma.
+ AnsiString name = parsedLine.at(0).c_str(); //First word is robot's name
+ // stoi: converts string to integer
+ int healthPoint = stoi(parsedLine.at(1)); //First number is health
+ int meleePower = stoi(parsedLine.at(2));  //Second number is melee power
+ int shootingPower = stoi(parsedLine.at(3)); //Third number is shooting power
+ int defensePower = stoi(parsedLine.at(4));  //Fourth number is defense power
+ Robot robot(name,healthPoint,meleePower,shootingPower,defensePower); //Create an object of type Robot
+ temporaryVector.push_back(robot);  //temporarily store it
+}
+}
+return temporaryVector;
+}
+
+ vector<int> idVector;
+
+vector<Robot> robotVector = getRobots();
+
+//bool validateID(int idNumber){
+////Reference: https://www.techiedelight.com/check-vector-contains-given-element-cpp/
+//  if(count(idVector.begin(),idVector.end(),idNumber)){  //If the number is found within the vector
+//  return false;
+//  }
+//  return true;
+//}
+void SaveCard(){
+//   int randomID;
+//   bool isNumberValid = false;
+//   while(!isNumberValid){ //Generate a new random number as long as it's unvalidated
+//	randomID = generateRandomNumber(10000);  // is within 10,000
+//	if(randomID<1000){randomID+=1000};  //Add another thousand if it's below a thousand
+//	isNumberValid = validateID(randomID); //Check for validation to prevent duplicates
+//   }
+  //To choose a card randomly, use a random index
+   int randomIndex = generateRandomNumber(robotVector.size());
+   //Access the specified object's getter to set the values of the new card
+   AnsiString name = robotVector[randomIndex].getName();
+   int health = robotVector[randomIndex].getHealth();
+   int melee = robotVector[randomIndex].getMAtk();
+   int shooting = robotVector[randomIndex].getSAtk();
+   int defense = robotVector[randomIndex].getDefense();
+
+   fstream cardDB;
+   cardDB.open("cards.txt",ios::app);
+
+   if(cardDB.is_open()){ //Write the data to the text file
+	  cardDB<<name<<","<<<health<<","<<<melee<<","<<<shooting<<","<<<defense<<"\n";
+	  cardDB.close();
+   }
 }
 
 
 
+map<string,vector<int>>  LoadCards(){
+map<string,vector<int>> temporaryMap;
+fstream cardDB;
+cardDB.open("cards.txt",ios::in);
+if(cardDB.is_open()){
+string line;
+while( getline(accountDB,line)){
+vector<string> parsedLine=parseCommaDelimitedString(line);
+//int cardNumber = stoi(parsedLine.at(0));
+idVector.push_back(cardNumber); //'List' the card numbers
+AnsiString cardName = parsedLine.at(0).c_str();
+int cardHealth = stoi(parsedLine.at(1));
+int cardMelee = stoi(parsedLine.at(2));
+int cardShooting = stoi(parsedLine.at(3));
+int cardDefense = stoi(parsedLine.at(4));
+vector<int> cardValue = {cardHealth,cardMelee,cardShooting,cardDefense};
+temporaryMap.insert({cardName,cardValue});
+}
+ return temporaryMap;
+}
+
+}
+map<string,vector<int>> cardMap = LoadCards();
+
+
+
+
+Player player;
+
+Enemy getEnemy(){
+   //To choose a new enemy randomly, use a random index
+   int randomIndex = generateRandomNumber(robotVector.size());
+   //Access the specified object's getter to set the values of the new enemy
+   AnsiString enemyName = robotVector[randomIndex].getName();
+   int enemyHealth = robotVector[randomIndex].getHealth();
+   int enemyMelee = robotVector[randomIndex].getMAtk();
+   int enemyShooting = robotVector[randomIndex].getSAtk();
+   int enemyDefense = robotVector[randomIndex].getDefense();
+   //Create the new enemy based on the values obtained
+   Enemy newEnemy(enemyName,enemyHealth,enemyMelee,enemyShooting,enemyDefense);
+   return newEnemy;
+}
+queue<Enemy> LoadEnemies(){
+   queue<Enemy> enemies;
+   // Create some enemies
+   Enemy enemy1 = getEnemy();
+   Enemy enemy2 = getEnemy();
+   Enemy enemy3= getEnemy();
+   // Store them to the queue
+   enemies.push(enemy1); enemies.push(enemy2); enemies.push(enemy3);
+   return enemies;
+}
+
 queue<Enemy> enemies;
 Enemy currentEnemy;
-
 
 TQuestForm *QuestForm;
 
@@ -157,16 +302,20 @@ __fastcall TQuestForm::TQuestForm(TComponent* Owner)
 	: TForm(Owner)
 {
 
-	enemies = LoadEnemies();
-    currentEnemy = enemies.front();
 
+
+
+	enemies = LoadEnemies(); //Create a list of enemy
+	currentEnemy = enemies.front(); //Challenge the first one in the queue
+
+    //Display player's current status
     PlayerHealthLabel->Text = player.getHealth();
 	PlayerMATKLabel->Text = player.getMAtk();
 	PlayerSATKLabel->Text = player.getSAtk();
 	PlayerDefenseLabel->Text = player.getDefense();
 
 
-
+    //Display current enemy's status information
 	EnemyNameLabel->Text = currentEnemy.getName();
 	EnemyHealthLabel->Text = currentEnemy.getHealth();
 	EnemyMATKLabel->Text = currentEnemy.getMAtk();
@@ -174,12 +323,30 @@ __fastcall TQuestForm::TQuestForm(TComponent* Owner)
 	EnemyDefenseLabel->Text = currentEnemy.getDefense();
 
 
-	enemies.pop();
+	enemies.pop(); //To prevent being called again
 
 
 }
 
-
+ void __fastcall TQuestForm:: StartRobot(){
+	 AnsiString cardName = CardEdit->Text;
+	 if(cardMap.contains(cardName){
+	   SetupPanel->Visible=false;
+	   CombatPanel->Visible=true;
+	   int health = cardMap[cardName][0];
+	   int melee = cardMap[cardName][1];
+	   int shooting = cardMap[cardName][2];
+	   int defense = cardMap[cardName][3];
+       player.setName(cardName);
+	   player.setHealth(health);
+	   player.setMAtk(melee);
+       player.setSAtk(shooting);
+       player.setDefense(defense);
+	 }
+	 else{
+         MessageLabel->Visible=true;
+     }
+ }
 //---------------------------------------------------------------------------
 
 
@@ -190,14 +357,9 @@ __fastcall TQuestForm::TQuestForm(TComponent* Owner)
 
 
 //---------------------------------------------------------------------------
-// RNG Function which returns an int value based on (parameter input-1)
-int generateRandomNumber(int limit){
-srand(time(NULL));
-int randomNumber = rand()%limit;
-return randomNumber;
-}
 
-void generatePlayerPhase(){
+
+void generatePlayerPhase(){  //The player starting stance depend on RNG
 int randomNumber = generateRandomNumber(2);
 switch (randomNumber){
 	case 0:player.setPhase(true);break;
@@ -206,7 +368,7 @@ switch (randomNumber){
 }
 }
 //---------------------------------------------------------------------------
-void generateEnemyMode(){
+void generateEnemyMode(){ //The current enemy attack/defense mode will depend on RNG
 int randomNumber = generateRandomNumber(2);
 switch (randomNumber){
 	case 0:currentEnemy.setMode("Melee");break;
@@ -214,6 +376,9 @@ switch (randomNumber){
 	default: break;
 }
 }
+
+
+
 
 
 void hitEnemy(int receivedDamage){
@@ -226,7 +391,7 @@ void hitPlayer(int receivedDamage){
 
 int calculateRemainingAttack(int attackOutput,int defenseOutput){
 	 attackOutput -= defenseOutput;
-	 if(attackOutput>0){
+	 if(attackOutput>0){  //Any remaining attack output will be returned
         return attackOutput;
 	 }
      return 0;
@@ -241,8 +406,9 @@ if(playerHealth<=0){ //When player is defeated,
    this->Close();
 }
 if(enemyHealth<=0){ //When enemy is defeated, get the next enemy
-    currentEnemy = enemies.front();
-    // Display new enemy status
+	if(!enemies.empty()){
+	currentEnemy = enemies.front();
+	// Display new enemy status
 	EnemyNameLabel->Text = currentEnemy.getName();
 	EnemyHealthLabel->Text = currentEnemy.getHealth();
 	EnemyMATKLabel->Text = currentEnemy.getMAtk();
@@ -250,12 +416,14 @@ if(enemyHealth<=0){ //When enemy is defeated, get the next enemy
 	EnemyDefenseLabel->Text = currentEnemy.getDefense();
 
 	enemies.pop();
+	}
+
 }
 }
 
-void engageInCombat(){
+void __fastcall TQuestForm::engageInCombat(){
 int trueAttack = 0;
-
+//Get the current stance, as well as both parties' chosen mode, attack and defense power
 bool isPlayerAttacking = player.getPhase();
 AnsiString playerMode = player.getMode();
 int playerMeleeAttack = player.getMAtk();
@@ -276,7 +444,7 @@ if(isPlayerAttacking){  // Player is attacking,
 	hitEnemy( playerShootingAttack);
  }
  else if (playerMode == enemyMode ){ // Enemy blocks player's attack
-    // If after reducing attack by defense there are still remaining attack, deal the enemy using remaining attack
+	// If after reducing attack by defense there are still remaining attack, deal the enemy using remaining attack
 	if(playerMode == "Melee" && playerMeleeAttack >enemyDefense){
 	trueAttack = calculateRemainingAttack(playerMeleeAttack ,enemyDefense);
 	}
@@ -289,14 +457,15 @@ if(isPlayerAttacking){  // Player is attacking,
  }
 else if(!isPlayerAttacking){  // Enemy is attacking,
   if(playerMode != enemyMode ){
-	 if(enemyMode=="Melee"){
+	 if(enemyMode=="Melee"){   //Successful melee attack to player
 	 hitPlayer(enemyMeleeAttack);
 	 }
-	 else if(enemyMode=="Shooting"){
+	 else if(enemyMode=="Shooting"){   //Successful shooting attack to player
      hitPlayer(enemyShootingAttack);
      }
   }
-  if(playerMode == enemyMode){
+  if(playerMode == enemyMode){  //Player blocks enemy's attack
+  // If after reducing attack by defense there are still remaining attack, deal the player using remaining attack
 	 if(enemyMode=="Melee" && enemyMeleeAttack>playerDefense){
 	  trueAttack = calculateRemainingAttack(enemyMeleeAttack,playerDefense);
 	 }
@@ -305,8 +474,9 @@ else if(!isPlayerAttacking){  // Enemy is attacking,
 	 }
      hitPlayer(trueAttack);
   }
-}
 
+}
+//  Popup1->Visible=true;
 
 }
 
@@ -327,11 +497,12 @@ else if(!isPlayerAttacking){  // Enemy is attacking,
 
 
 void TQuestForm::switchMode(bool isPlayerAttacking){
+// Change the text highlighting both parties' stance and mode based on the player's stance
   if(isPlayerAttacking){
    PlayerStanceLabel->Text = "Attacker";
    EnemyStanceLabel->Text = "Defender";
-   ShootingLabel->Text="Melee";
    MeleeLabel->Text="Shooting";
+   ShootingLabel->Text="Melee";
  }
  else if(!isPlayerAttacking){
    PlayerStanceLabel->Text = "Defender";
@@ -389,14 +560,18 @@ void __fastcall TQuestForm::MeleeCircleClick(TObject *Sender)
 
 void __fastcall TQuestForm::ConfirmCircleClick(TObject *Sender)
 {
+  //Once the battle is initiated,
+  // remove the confirmation button from sight
   ConfirmCircle->Visible=false;
   ConfirmLabel->Visible=false;
+  // and put the battle modes in sight instead
   ShootingCircle->Visible=true;
   MeleeCircle->Visible=true;
   ShootingLabel->Visible=true;
   MeleeLabel->Visible=true;
 
   generatePlayerPhase();
+  // Display both parties stance from the randomly generated phase
   if(player.getPhase()==true){
   PlayerStanceLabel->Text = "Attacker";
   }
@@ -415,7 +590,7 @@ void __fastcall TQuestForm::ConfirmCircleClick(TObject *Sender)
 
 
 //---------------------------------------------------------------------------
-
+//Periodically update the status information of health points of both parties
 void __fastcall TQuestForm::Timer1Timer(TObject *Sender)
 {
  PlayerHealthLabel->Text = player.getHealth();
@@ -424,5 +599,27 @@ void __fastcall TQuestForm::Timer1Timer(TObject *Sender)
 //---------------------------------------------------------------------------
 
 
+//---------------------------------------------------------------------------
+
+
+
+
+//---------------------------------------------------------------------------
+
+
+
+
+
+
+//---------------------------------------------------------------------------
+
+
+
+//---------------------------------------------------------------------------
+
+void __fastcall TQuestForm::StartButtonClick(TObject *Sender)
+{
+  StartRobot();
+}
 //---------------------------------------------------------------------------
 
