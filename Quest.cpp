@@ -40,8 +40,14 @@ public:
    int getHealth(){
    return healthPoint;
    }
-   void setHealth(int newHealth){
-   healthPoint = newHealth;
+   void setHealth(int health){
+   healthPoint = health;
+   }
+   int getMaxHealth(){
+   return maxHealthPoint;
+   }
+   void setMaxHealth(int maxHealth){
+     maxHealthPoint = maxHealth;
    }
    void addHealth(int heal){
    healthPoint += heal;
@@ -77,6 +83,7 @@ public:
    protected:
    AnsiString name;
    int healthPoint;
+   int maxHealthPoint;
    int meleeAttack;
    int shootingAttack;
    int defensePoint;
@@ -87,7 +94,7 @@ class Player: public Robot{
 	public:
 	Player(){}
 	Player(int healthPoint,int meleeAttack, int shootingAttack,int defensePoint){
-	Score = 0;
+	Score = 1;
 	maxHealth = healthPoint;
 	this->healthPoint = healthPoint;
 	this->meleeAttack = meleeAttack;
@@ -153,7 +160,7 @@ srand(time(NULL));
 int randomNumber = rand()%limit;
 return randomNumber;
 }
-
+// Seperate a string by commas and put the seperated strings into vector
 vector<string> parseCommaDelimitedString(string line){
 vector<string> result;
 stringstream s_stream(line);
@@ -197,11 +204,11 @@ map<AnsiString,vector<int>> GenerateCard(){
   //To choose a card randomly, use a random index
    int randomIndex = generateRandomNumber(robotVector.size());
    //Access the specified object's getter to set the values of the new card
-   AnsiString cardName= robotVector[randomIndex].getName();
-   int cardHealth = robotVector[randomIndex].getHealth();
-   int cardMelee = robotVector[randomIndex].getMAtk();
-   int cardShooting = robotVector[randomIndex].getSAtk();
-   int cardDefense = robotVector[randomIndex].getDefense();
+   AnsiString cardName= robotVector.at(randomIndex).getName();
+   int cardHealth = robotVector.at(randomIndex).getHealth();
+   int cardMelee = robotVector.at(randomIndex).getMAtk();
+   int cardShooting = robotVector.at(randomIndex).getSAtk();
+   int cardDefense = robotVector.at(randomIndex).getDefense();
    vector<int> cardValue = {cardHealth,cardMelee,cardShooting,cardDefense};
    temporaryMap.insert({cardName,cardValue});
    return temporaryMap;
@@ -258,16 +265,7 @@ Enemy CreateEnemy(){
    }
    return newEnemy;
 }
-queue<Enemy> LoadEnemies(){
-   queue<Enemy> enemies;
-   // Create some enemies
-   Enemy enemy1 = CreateEnemy();
-   Enemy enemy2 = CreateEnemy();
-   Enemy enemy3= CreateEnemy();
-   // Store them to the queue
-   enemies.push(enemy1); enemies.push(enemy2); enemies.push(enemy3);
-   return enemies;
-}
+
 
 queue<Enemy> enemies;
 Enemy currentEnemy;
@@ -278,12 +276,14 @@ TQuestForm *QuestForm;
 //---------------------------------------------------------------------------
  __fastcall TQuestForm::TQuestForm(TComponent* Owner)
  : TForm(Owner)
-{
+{   //Create a list of enemy
+	Enemy e1 = CreateEnemy();
+    Enemy e2 = CreateEnemy();
+	enemies.push(e1);
+    enemies.push(e2);
 
 
 
-
-	enemies = LoadEnemies(); //Create a list of enemy
 	currentEnemy = enemies.front(); //Challenge the first one in the queue
 
 
@@ -318,6 +318,7 @@ TQuestForm *QuestForm;
 	 //Set player's status value
 	 player.setName(rawName);
 	 player.setHealth(health);
+     player.setMaxHealth(health);
 	 player.setMAtk(melee);
 	 player.setSAtk(shooting);
 	 player.setDefense(defense);
@@ -410,7 +411,9 @@ if(enemyHealth<=0){ //When enemy is defeated, get the next enemy
 
 	enemies.pop();
 
-    player.setHealth(player.getMaxHealth()); //Restore to full health
+	player.setHealth(player.getMaxHealth()); //Restore to full health
+
+    StageLabel->Text = player.getScore();
 	}
 
 }
@@ -541,7 +544,7 @@ void __fastcall TQuestForm::MeleeCircleClick(TObject *Sender)
  player.setMode("Melee");
 
  engageInCombat();
-  checkDeath();
+ checkDeath();
 
  switchPhase();
  bool isPlayerAttacking = player.getPhase();
