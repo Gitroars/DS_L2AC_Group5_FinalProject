@@ -25,12 +25,12 @@ __published:	// IDE-managed Components
 	TLabel *EnemyNameLabel;
 	TLabel *EnemyHealthLabel;
 	TLabel *EnemyMATKLabel;
-	TLabel *EnemyDefenseLabel;
+	TLabel *EnemyMeleeDefenseLabel;
 	TLabel *EnemySATKLabel;
 	TLabel *StageLabel;
 	TLabel *PlayerMATKLabel;
 	TLabel *PlayerSATKLabel;
-	TLabel *PlayerDefenseLabel;
+	TLabel *PlayerMeleeDefenseLabel;
 	TLabel *PlayerHealthLabel;
 	TLabel *PlayerNameLabel;
 	TLabel *MeleeLabel;
@@ -72,7 +72,12 @@ __published:	// IDE-managed Components
 	TImage *Image3;
 	TImage *Image4;
 	TImage *Image5;
-	TImage *Image6;
+	TLabel *PlayerRangeDefenseLabel;
+	TLabel *EnemyRangeDefenseLabel;
+	TPanel *LosePanel;
+	TPanel *WinPanel;
+	TLabel *Label1;
+	TLabel *Label2;
 	void __fastcall ShootingCircleClick(TObject *Sender);
 	void __fastcall MeleeCircleClick(TObject *Sender);
 
@@ -93,6 +98,8 @@ __published:	// IDE-managed Components
 
 	void __fastcall AntiMeleeImageClick(TObject *Sender);
 	void __fastcall AntiRangeImageClick(TObject *Sender);
+	void __fastcall LosePanelClick(TObject *Sender);
+	void __fastcall WinPanelClick(TObject *Sender);
 
 
 

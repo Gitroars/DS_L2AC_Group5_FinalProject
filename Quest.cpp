@@ -15,7 +15,7 @@
 #pragma hdrstop
 
 #include "Quest.h"
-#include "Robot.h"
+
 using namespace std;
 //---------------------------------------------------------------------------
 #pragma package(smart_init)
@@ -277,8 +277,8 @@ TQuestForm *QuestForm;
 	EnemyHealthLabel->Text = currentEnemy.getHealth();
 	EnemyMATKLabel->Text = currentEnemy.getMAtk();
 	EnemySATKLabel->Text = currentEnemy.getSAtk();
-	EnemyDefenseLabel->Text = currentEnemy.getDefense();
-
+	EnemyMeleeDefenseLabel->Text = currentEnemy.getDefense();
+    EnemyRangeDefenseLabel->Text = currentEnemy.getDefense();
 
 	enemies.pop(); //To prevent being called again
 
@@ -310,7 +310,8 @@ TQuestForm *QuestForm;
 	 PlayerHealthLabel->Text = player.getHealth();
 	 PlayerMATKLabel->Text = player.getMAtk();
 	 PlayerSATKLabel->Text = player.getSAtk();
-	 PlayerDefenseLabel->Text = player.getDefense();
+	 PlayerMeleeDefenseLabel->Text = player.getDefense();
+     PlayerRangeDefenseLabel->Text = player.getDefense();
      //Change displayed panel screen to Combat
 	 SetupPanel->Visible=false;
 	 CombatPanel->Visible=true;
@@ -380,7 +381,8 @@ int playerHealth = player.getHealth();
 int enemyHealth = currentEnemy.getHealth();
 if(playerHealth<=0){ //When player is defeated,
 
-   this->Close(); //close the app
+   CombatPanel->Visible=false;
+   LosePanel->Visible=true;
 }
 if(enemyHealth<=0){ //When enemy is defeated, get the next enemy
 	if(!enemies.empty()){
@@ -391,7 +393,8 @@ if(enemyHealth<=0){ //When enemy is defeated, get the next enemy
 	EnemyHealthLabel->Text = currentEnemy.getHealth();
 	EnemyMATKLabel->Text = currentEnemy.getMAtk();
 	EnemySATKLabel->Text = currentEnemy.getSAtk();
-	EnemyDefenseLabel->Text = currentEnemy.getDefense();
+	EnemyMeleeDefenseLabel->Text = currentEnemy.getDefense();
+    EnemyRangeDefenseLabel->Text = currentEnemy.getDefense();
 
 	enemies.pop();  //remove enemy from queue to prevent being used again
 
@@ -400,7 +403,8 @@ if(enemyHealth<=0){ //When enemy is defeated, get the next enemy
     StageLabel->Text = currentStage;
 	}
 	else{  //When there's no more enemy,
-      this->Close();   //close the app
+       CombatPanel->Visible=false;
+       WinPanel->Visible=true;
     }
 
 }
@@ -608,6 +612,7 @@ void __fastcall TQuestForm::CardPanelClick(TObject *Sender)
 {
  CardPanel->Visible=false;
  SetupPanel->Visible=true;
+
 }
 //---------------------------------------------------------------------------
 
@@ -682,6 +687,20 @@ void __fastcall TQuestForm::AntiRangeImageClick(TObject *Sender)
   checkDeath();
    switchPhase();
    switchMode(player.getPhase());
+}
+//---------------------------------------------------------------------------
+
+
+
+void __fastcall TQuestForm::LosePanelClick(TObject *Sender)
+{
+   this->Close();  //close app
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TQuestForm::WinPanelClick(TObject *Sender)
+{
+   this->Close();  //close app
 }
 //---------------------------------------------------------------------------
 

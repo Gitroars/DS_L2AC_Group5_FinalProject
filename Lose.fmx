@@ -1,0 +1,24 @@
+object Form2: TForm2
+  Left = 0
+  Top = 0
+  Caption = 'Form2'
+  ClientHeight = 480
+  ClientWidth = 640
+  FormFactor.Width = 320
+  FormFactor.Height = 480
+  FormFactor.Devices = [Desktop]
+  OnCreate = FormCreate
+  DesignerMasterStyle = 0
+  object TLabel
+    StyledSettings = [Family, Style, FontColor]
+    Position.X = 120.000000000000000000
+    Position.Y = 104.000000000000000000
+    Size.Width = 409.000000000000000000
+    Size.Height = 257.000000000000000000
+    Size.PlatformDefault = False
+    TextSettings.Font.Size = 50.000000000000000000
+    TextSettings.HorzAlign = Center
+    Text = 'GAME OVER'
+    TabOrder = 0
+  end
+end

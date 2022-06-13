@@ -34,12 +34,6 @@ Coordinates=448,1,118,58
 [PlayerSATKLabel]
 Coordinates=21,173,116,58
 
-[EnemyDefenseLabel]
-Coordinates=117,77,133,58
-
-[PlayerDefenseLabel]
-Coordinates=448,155,130,58
-
 [EnemyStanceLabel]
 Coordinates=616,1,126,58
 
@@ -123,4 +117,10 @@ Coordinates=378,328,122,58
 
 [CombatPanel]
 Coordinates=517,366,92,36
+
+[PlayerMeleeDefenseLabel]
+Coordinates=448,155,130,58
+
+[EnemyMeleeDefenseLabel]
+Coordinates=117,77,133,58
 
