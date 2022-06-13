@@ -14,6 +14,8 @@
 #include <FMX.Effects.hpp>
 #include <FMX.Filter.Effects.hpp>
 #include <FMX.Edit.hpp>
+#include <FMX.Layouts.hpp>
+#include <FMX.ListBox.hpp>
 //---------------------------------------------------------------------------
 class TQuestForm : public TForm
 {
@@ -51,6 +53,22 @@ __published:	// IDE-managed Components
 	TLabel *Label5;
 	TButton *StartButton;
 	TLabel *MessageLabel;
+	TPanel *StartPanel;
+	TLabel *InstructionLabel;
+	TLabel *TitleLabel;
+	TLabel *CardShootingLabel;
+	TLabel *CardDefenseLabel;
+	TLabel *CardHealthLabel;
+	TLabel *CardNameLabel;
+	TLabel *CardMeleeLabel;
+	TPanel *CardPanel;
+	TLabel *LootLabel;
+	TLabel *Label6;
+	TLabel *Label7;
+	TLabel *Label8;
+	TLabel *Label9;
+	TLabel *Label10;
+	TLabel *Label11;
 	void __fastcall ShootingCircleClick(TObject *Sender);
 	void __fastcall MeleeCircleClick(TObject *Sender);
 
@@ -60,8 +78,11 @@ __published:	// IDE-managed Components
 	void __fastcall checkDeath();
 	void __fastcall switchMode(bool isPlayerAttacking);
 	void __fastcall engageInCombat();
-	void __fastcall ZClick(TObject *Sender);
+
 	void __fastcall StartButtonClick(TObject *Sender);
+    void __fastcall  StartRobot();
+	void __fastcall StartPanelClick(TObject *Sender);
+	void __fastcall CardPanelClick(TObject *Sender);
 
 
 

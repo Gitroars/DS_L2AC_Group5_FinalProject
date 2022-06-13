@@ -7,6 +7,8 @@
 #include <vector>
 #include <queue>
 #include <map>
+#include <iterator>
+#include <algorithm>
 #include <fstream>
 #include <sstream>
 #include <iostream>
@@ -23,7 +25,7 @@ class Robot{
 public:
    Robot(){}
    Robot(AnsiString name,int healthPoint,int meleeAttack, int shootingAttack,int defensePoint){
-    this->name = name;
+	this->name = name;
     this->healthPoint = healthPoint;
 	this->meleeAttack = meleeAttack;
 	this->shootingAttack = shootingAttack;
@@ -39,7 +41,7 @@ public:
    return healthPoint;
    }
    void setHealth(int newHealth){
-   health = newHealth;
+   healthPoint = newHealth;
    }
    void addHealth(int heal){
    healthPoint += heal;
@@ -107,7 +109,7 @@ class Player: public Robot{
     Score = newScore;
     }
 	private:
-    int maxHealth;
+	int maxHealth;
 	bool isAttackPhase;
 	AnsiString meleeMode;
     AnsiString shootingMode;
@@ -117,7 +119,7 @@ class Player: public Robot{
 class Enemy: public Robot{
    public:
    Enemy(){}
-   Enemy(AnsiString name,int healthPoint,int meleeAttack, int shootingAttack,int defensePoint  ){
+   Enemy(const char* name,int healthPoint,int meleeAttack, int shootingAttack,int defensePoint  ){
 	this->name = name;
 	this->healthPoint = healthPoint;
 	this->meleeAttack = meleeAttack;
@@ -132,29 +134,14 @@ class Enemy: public Robot{
 };
 
 
-int healthPoint = 100;
-int meleeAttack = 15;
-int shootingAttack = 15;
-int defensePoint = 15;
 
 
 
 
 
 
-//queue<Enemy> LoadEnemies(){
-//Enemy e1("Poring",30,15,15,15);
-//e1.setName("Bandit");
-//Enemy e2("Mastering",40,20,20,20);
-//e2.setName("Bandit Lieutenant");
-//Enemy e3("Poring King",50,25,25,25);
-//e3.setName("Bandit Commander");
-//queue<Enemy> enemies;
-//enemies.push(e1);
-//enemies.push(e2);
-//enemies.push(e3);
-//return enemies;
-//}
+
+
 
 
 
@@ -178,7 +165,7 @@ result.push_back(substr);
 return result;
 }
 
-vector<Robot> getRobots(){
+vector<Robot> LoadRobots(){
 vector<Robot> temporaryVector;
 fstream robotDB;
 robotDB.open("robots.txt",ios::in); //Open the text file containing robots' specifications
@@ -201,53 +188,35 @@ return temporaryVector;
 
  vector<int> idVector;
 
-vector<Robot> robotVector = getRobots();
+vector<Robot> robotVector = LoadRobots();
 
-//bool validateID(int idNumber){
-////Reference: https://www.techiedelight.com/check-vector-contains-given-element-cpp/
-//  if(count(idVector.begin(),idVector.end(),idNumber)){  //If the number is found within the vector
-//  return false;
-//  }
-//  return true;
-//}
-void SaveCard(){
-//   int randomID;
-//   bool isNumberValid = false;
-//   while(!isNumberValid){ //Generate a new random number as long as it's unvalidated
-//	randomID = generateRandomNumber(10000);  // is within 10,000
-//	if(randomID<1000){randomID+=1000};  //Add another thousand if it's below a thousand
-//	isNumberValid = validateID(randomID); //Check for validation to prevent duplicates
-//   }
+
+
+map<AnsiString,vector<int>> GenerateCard(){
+   map<AnsiString,vector<int>> temporaryMap;
   //To choose a card randomly, use a random index
    int randomIndex = generateRandomNumber(robotVector.size());
    //Access the specified object's getter to set the values of the new card
-   AnsiString name = robotVector[randomIndex].getName();
-   int health = robotVector[randomIndex].getHealth();
-   int melee = robotVector[randomIndex].getMAtk();
-   int shooting = robotVector[randomIndex].getSAtk();
-   int defense = robotVector[randomIndex].getDefense();
-
-   fstream cardDB;
-   cardDB.open("cards.txt",ios::app);
-
-   if(cardDB.is_open()){ //Write the data to the text file
-	  cardDB<<name<<","<<<health<<","<<<melee<<","<<<shooting<<","<<<defense<<"\n";
-	  cardDB.close();
-   }
+   AnsiString cardName= robotVector[randomIndex].getName();
+   int cardHealth = robotVector[randomIndex].getHealth();
+   int cardMelee = robotVector[randomIndex].getMAtk();
+   int cardShooting = robotVector[randomIndex].getSAtk();
+   int cardDefense = robotVector[randomIndex].getDefense();
+   vector<int> cardValue = {cardHealth,cardMelee,cardShooting,cardDefense};
+   temporaryMap.insert({cardName,cardValue});
+   return temporaryMap;
 }
 
 
 
-map<string,vector<int>>  LoadCards(){
-map<string,vector<int>> temporaryMap;
+map<AnsiString,vector<int>>  LoadCards(){ //loading owned cards
+map<AnsiString,vector<int>> temporaryMap;
 fstream cardDB;
 cardDB.open("cards.txt",ios::in);
 if(cardDB.is_open()){
 string line;
-while( getline(accountDB,line)){
+while( getline(cardDB,line)){
 vector<string> parsedLine=parseCommaDelimitedString(line);
-//int cardNumber = stoi(parsedLine.at(0));
-idVector.push_back(cardNumber); //'List' the card numbers
 AnsiString cardName = parsedLine.at(0).c_str();
 int cardHealth = stoi(parsedLine.at(1));
 int cardMelee = stoi(parsedLine.at(2));
@@ -256,36 +225,45 @@ int cardDefense = stoi(parsedLine.at(4));
 vector<int> cardValue = {cardHealth,cardMelee,cardShooting,cardDefense};
 temporaryMap.insert({cardName,cardValue});
 }
- return temporaryMap;
-}
 
 }
-map<string,vector<int>> cardMap = LoadCards();
+return temporaryMap;
+}
+map<AnsiString,vector<int>> cardMap;
+map<AnsiString,vector<int>>:: iterator cardIt; // Create an iterator of cardmap
 
 
 
 
 Player player;
 
-Enemy getEnemy(){
-   //To choose a new enemy randomly, use a random index
-   int randomIndex = generateRandomNumber(robotVector.size());
-   //Access the specified object's getter to set the values of the new enemy
-   AnsiString enemyName = robotVector[randomIndex].getName();
-   int enemyHealth = robotVector[randomIndex].getHealth();
-   int enemyMelee = robotVector[randomIndex].getMAtk();
-   int enemyShooting = robotVector[randomIndex].getSAtk();
-   int enemyDefense = robotVector[randomIndex].getDefense();
-   //Create the new enemy based on the values obtained
-   Enemy newEnemy(enemyName,enemyHealth,enemyMelee,enemyShooting,enemyDefense);
+Enemy CreateEnemy(){
+   map<AnsiString,vector<int>> enemyCardMap = GenerateCard();
+   map<AnsiString,vector<int>>:: iterator enemyCardIt = enemyCardMap.begin(); // Iterate through all elements in map
+   Enemy newEnemy;  //Declare object of Enemy
+   while(enemyCardIt!=enemyCardMap.end()){
+	 AnsiString enemyName = enemyCardIt->first; //Retrieve key
+	 vector<int> enemyCardValue = enemyCardIt->second; //Retrieve value
+	 //Set object value
+	 int enemyHealth = enemyCardValue[0];
+	 int enemyMelee = enemyCardValue[1];
+	 int enemyShooting = enemyCardValue[2];
+	 int enemyDefense = enemyCardValue[3];
+	 newEnemy.setName(enemyName);
+	 newEnemy.setHealth(enemyHealth);
+	 newEnemy.setMAtk(enemyMelee);
+	 newEnemy.setSAtk(enemyShooting);
+	 newEnemy.setDefense(enemyDefense);
+	 enemyCardIt++;
+   }
    return newEnemy;
 }
 queue<Enemy> LoadEnemies(){
    queue<Enemy> enemies;
    // Create some enemies
-   Enemy enemy1 = getEnemy();
-   Enemy enemy2 = getEnemy();
-   Enemy enemy3= getEnemy();
+   Enemy enemy1 = CreateEnemy();
+   Enemy enemy2 = CreateEnemy();
+   Enemy enemy3= CreateEnemy();
    // Store them to the queue
    enemies.push(enemy1); enemies.push(enemy2); enemies.push(enemy3);
    return enemies;
@@ -298,8 +276,8 @@ TQuestForm *QuestForm;
 
 
 //---------------------------------------------------------------------------
-__fastcall TQuestForm::TQuestForm(TComponent* Owner)
-	: TForm(Owner)
+ __fastcall TQuestForm::TQuestForm(TComponent* Owner)
+ : TForm(Owner)
 {
 
 
@@ -308,11 +286,7 @@ __fastcall TQuestForm::TQuestForm(TComponent* Owner)
 	enemies = LoadEnemies(); //Create a list of enemy
 	currentEnemy = enemies.front(); //Challenge the first one in the queue
 
-    //Display player's current status
-    PlayerHealthLabel->Text = player.getHealth();
-	PlayerMATKLabel->Text = player.getMAtk();
-	PlayerSATKLabel->Text = player.getSAtk();
-	PlayerDefenseLabel->Text = player.getDefense();
+
 
 
     //Display current enemy's status information
@@ -327,25 +301,44 @@ __fastcall TQuestForm::TQuestForm(TComponent* Owner)
 
 
 }
-
+ 
  void __fastcall TQuestForm:: StartRobot(){
-	 AnsiString cardName = CardEdit->Text;
-	 if(cardMap.contains(cardName){
-	   SetupPanel->Visible=false;
-	   CombatPanel->Visible=true;
-	   int health = cardMap[cardName][0];
-	   int melee = cardMap[cardName][1];
-	   int shooting = cardMap[cardName][2];
-	   int defense = cardMap[cardName][3];
-       player.setName(cardName);
-	   player.setHealth(health);
-	   player.setMAtk(melee);
-       player.setSAtk(shooting);
-       player.setDefense(defense);
+	 AnsiString rawName= CardEdit->Text; //Get user input from editable text field
+	 //Find reference: https://thispointer.com/how-check-if-a-given-key-exists-in-a-map-c/
+	 cardIt = cardMap.find(rawName); // Find the element with key [cardName]
+	 // Check whether it exists in the cardMap or not
+	 if(cardIt!= cardMap.end()){
+	 //Element is found
+	 vector<int> cardValue = cardIt->second;  //Access the value from iterator
+     //Retrieve the data
+	 int health = cardValue[0];
+	 int melee = cardValue[1];
+	 int shooting = cardValue[2];
+	 int defense = cardValue[3];
+	 //Set player's status value
+	 player.setName(rawName);
+	 player.setHealth(health);
+	 player.setMAtk(melee);
+	 player.setSAtk(shooting);
+	 player.setDefense(defense);
+	 //Display the status on text labels
+     PlayerNameLabel->Text = player.getName();
+	 PlayerHealthLabel->Text = player.getHealth();
+	 PlayerMATKLabel->Text = player.getMAtk();
+	 PlayerSATKLabel->Text = player.getSAtk();
+	 PlayerDefenseLabel->Text = player.getDefense();
+     //Change displayed panel screen to Combat
+	 SetupPanel->Visible=false;
+	 CombatPanel->Visible=true;
 	 }
-	 else{
-         MessageLabel->Visible=true;
+	 else{ //Warns the user of invalid card ownership
+      MessageLabel->Visible=true;
      }
+
+
+
+
+
  }
 //---------------------------------------------------------------------------
 
@@ -416,6 +409,8 @@ if(enemyHealth<=0){ //When enemy is defeated, get the next enemy
 	EnemyDefenseLabel->Text = currentEnemy.getDefense();
 
 	enemies.pop();
+
+    player.setHealth(player.getMaxHealth()); //Restore to full health
 	}
 
 }
@@ -476,7 +471,7 @@ else if(!isPlayerAttacking){  // Enemy is attacking,
   }
 
 }
-//  Popup1->Visible=true;
+
 
 }
 
@@ -620,6 +615,63 @@ void __fastcall TQuestForm::Timer1Timer(TObject *Sender)
 void __fastcall TQuestForm::StartButtonClick(TObject *Sender)
 {
   StartRobot();
+
+}
+//---------------------------------------------------------------------------
+
+
+
+
+void __fastcall TQuestForm::StartPanelClick(TObject *Sender)
+{
+   map<AnsiString,vector<int>> newCardMap = GenerateCard();
+   map<AnsiString,vector<int>>:: iterator newCardIt = newCardMap.begin(); // Iterate through all elements in map
+   AnsiString newCardName;
+   int newCardHealth,newCardMelee,newCardShooting,newCardDefense;
+   while(newCardIt!=newCardMap.end()){
+	 newCardName = newCardIt->first; //Retrieve key
+	 vector<int> newCardValue = newCardIt->second; //Retrieve value
+	 //Set object value
+	  newCardHealth = newCardValue.at(0);
+	  newCardMelee = newCardValue.at(1);
+	  newCardShooting = newCardValue.at(2);
+	  newCardDefense = newCardValue.at(3);
+	 newCardIt++;
+   }
+   //Display the status information
+
+   CardNameLabel->Text=newCardName;
+   CardHealthLabel->Text=newCardHealth;
+   CardMeleeLabel->Text=newCardHealth;
+   CardShootingLabel->Text=newCardShooting;
+   CardDefenseLabel->Text=newCardDefense;
+   //Save the card in 'inventory' text file
+   fstream cardDB;
+   cardDB.open("cards.txt",ios::app);
+
+   if(cardDB.is_open()){ //Write the data to the text file
+	  cardDB<<newCardName<<","<<newCardHealth<<","<<newCardMelee<<","<<newCardShooting<<","<<newCardDefense<<"\n";
+	  cardDB.close();
+   }
+   //Load all owned cards to map
+   cardMap = LoadCards();
+   //Switch the panel screen being displayed to card details
+  StartPanel->Visible=false;
+  CardPanel->Visible=true;
+
+}
+//---------------------------------------------------------------------------
+
+
+
+
+
+
+
+void __fastcall TQuestForm::CardPanelClick(TObject *Sender)
+{
+ CardPanel->Visible=false;
+ SetupPanel->Visible=true;
 }
 //---------------------------------------------------------------------------
 
