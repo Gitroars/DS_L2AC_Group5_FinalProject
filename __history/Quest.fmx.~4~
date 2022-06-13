@@ -18,7 +18,6 @@ object QuestForm: TQuestForm
     Size.Width = 609.000000000000000000
     Size.Height = 481.000000000000000000
     Size.PlatformDefault = False
-    Visible = False
     TabOrder = 5
     object PlayerDefenseLabel: TLabel
       StyledSettings = [Family, Style, FontColor]
@@ -362,6 +361,7 @@ object QuestForm: TQuestForm
     Size.Width = 625.000000000000000000
     Size.Height = 489.000000000000000000
     Size.PlatformDefault = False
+    Visible = False
     TabOrder = 8
     OnClick = StartPanelClick
     object InstructionLabel: TLabel

@@ -47,6 +47,7 @@ __published:	// IDE-managed Components
 	TLabel *EnemyStanceLabel;
 	TLabel *Label3;
 	TPanel *CombatPanel;
+	TCalloutPanel *CalloutPanel1;
 	TPanel *SetupPanel;
 	TEdit *CardEdit;
 	TLabel *Label5;

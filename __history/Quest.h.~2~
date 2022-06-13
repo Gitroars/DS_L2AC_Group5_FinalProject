@@ -47,6 +47,7 @@ __published:	// IDE-managed Components
 	TLabel *EnemyStanceLabel;
 	TLabel *Label3;
 	TPanel *CombatPanel;
+	TCalloutPanel *CalloutPanel1;
 	TPanel *SetupPanel;
 	TEdit *CardEdit;
 	TLabel *Label5;
@@ -68,7 +69,6 @@ __published:	// IDE-managed Components
 	TLabel *Label9;
 	TLabel *Label10;
 	TLabel *Label11;
-	TLabel *Label12;
 	void __fastcall ShootingCircleClick(TObject *Sender);
 	void __fastcall MeleeCircleClick(TObject *Sender);
 

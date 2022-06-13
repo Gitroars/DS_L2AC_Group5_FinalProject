@@ -384,7 +384,6 @@ if(playerHealth<=0){ //When player is defeated,
 }
 if(enemyHealth<=0){ //When enemy is defeated, get the next enemy
 	if(!enemies.empty()){
-    currentStage++; //increase stage level's number
 	currentEnemy = enemies.front();
 	// Display new enemy status
 	EnemyNameLabel->Text = currentEnemy.getName();
@@ -664,7 +663,6 @@ void __fastcall TQuestForm::CardPanelClick(TObject *Sender)
  SetupPanel->Visible=true;
 }
 //---------------------------------------------------------------------------
-
 
 
 
