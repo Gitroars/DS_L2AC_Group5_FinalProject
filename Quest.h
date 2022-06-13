@@ -90,7 +90,7 @@ __published:	// IDE-managed Components
 	void __fastcall BattleImageClick(TObject *Sender);
 	void __fastcall MeleeImageClick(TObject *Sender);
 	void __fastcall RangeImageClick(TObject *Sender);
-	void __fastcall Image6Click(TObject *Sender);
+
 	void __fastcall AntiMeleeImageClick(TObject *Sender);
 	void __fastcall AntiRangeImageClick(TObject *Sender);
 

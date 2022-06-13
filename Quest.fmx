@@ -2640,7 +2640,6 @@ object QuestForm: TQuestForm
         end>
       Position.X = 376.000000000000000000
       Position.Y = 272.000000000000000000
-      OnClick = Image6Click
     end
   end
   object SetupPanel: TPanel
