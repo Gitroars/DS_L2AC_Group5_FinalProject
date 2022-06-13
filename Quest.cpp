@@ -410,6 +410,13 @@ if(enemyHealth<=0){ //When enemy is defeated, get the next enemy
 }
 }
 
+void __fastcall TQuestForm::InvisibleStatus(){ //Set all attack or defense success or failure confirmation to be hidden
+AtkWinImage->Visible=false;
+AtkLoseImage->Visible=false;
+DefWinImage->Visible=false;
+DefLoseImage->Visible=false;
+}
+
 void __fastcall TQuestForm::engageInCombat(){
 int trueAttack = 0;
 //Get the current stance, as well as both parties' chosen mode, attack and defense power
@@ -425,14 +432,17 @@ int enemyMeleeAttack = currentEnemy.getMAtk();
 int enemyShootingAttack = currentEnemy.getSAtk();
 int enemyDefense = currentEnemy.getDefense();
 
+InvisibleStatus();
 if(isPlayerAttacking){  // Player is attacking,
  if(playerMode != enemyMode && playerMode == "Melee"){ // Successful melee attack to enemy
-	hitEnemy(playerMeleeAttack);
+	hitEnemy(playerMeleeAttack); AtkWinImage->Visible = true;
+
 }
  else if(playerMode != enemyMode && playerMode == "Shooting"){ // Successfull shooting attack to enemy
-	hitEnemy( playerShootingAttack);
+	hitEnemy( playerShootingAttack); AtkWinImage->Visible = true;
  }
  else if (playerMode == enemyMode ){ // Enemy blocks player's attack
+    AtkLoseImage->Visible = true;
 	// If after reducing attack by defense there are still remaining attack, deal the enemy using remaining attack
 	if(playerMode == "Melee" && playerMeleeAttack >enemyDefense){
 	trueAttack = calculateRemainingAttack(playerMeleeAttack ,enemyDefense);
@@ -446,6 +456,7 @@ if(isPlayerAttacking){  // Player is attacking,
  }
 else if(!isPlayerAttacking){  // Enemy is attacking,
   if(playerMode != enemyMode ){
+     DefLoseImage->Visible=true;
 	 if(enemyMode=="Melee"){   //Successful melee attack to player
 	 hitPlayer(enemyMeleeAttack);
 	 }
@@ -454,6 +465,7 @@ else if(!isPlayerAttacking){  // Enemy is attacking,
      }
   }
   if(playerMode == enemyMode){  //Player blocks enemy's attack
+     DefWinImage->Visible=true;
   // If after reducing attack by defense there are still remaining attack, deal the player using remaining attack
 	 if(enemyMode=="Melee" && enemyMeleeAttack>playerDefense){
 	  trueAttack = calculateRemainingAttack(enemyMeleeAttack,playerDefense);

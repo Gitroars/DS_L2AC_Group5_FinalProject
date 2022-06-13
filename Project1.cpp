@@ -8,7 +8,6 @@
 #include <System.StartUpCopy.hpp>
 //---------------------------------------------------------------------------
 USEFORM("Quest.cpp", QuestForm);
-USEFORM("Account.cpp", Form1);
 //---------------------------------------------------------------------------
 extern "C" int FMXmain()
 {

@@ -78,6 +78,10 @@ __published:	// IDE-managed Components
 	TPanel *WinPanel;
 	TLabel *Label1;
 	TLabel *Label2;
+	TImage *AtkWinImage;
+	TImage *DefWinImage;
+	TImage *AtkLoseImage;
+	TImage *DefLoseImage;
 	void __fastcall ShootingCircleClick(TObject *Sender);
 	void __fastcall MeleeCircleClick(TObject *Sender);
 
@@ -100,8 +104,7 @@ __published:	// IDE-managed Components
 	void __fastcall AntiRangeImageClick(TObject *Sender);
 	void __fastcall LosePanelClick(TObject *Sender);
 	void __fastcall WinPanelClick(TObject *Sender);
-
-
+    void __fastcall InvisibleStatus();
 
 
 

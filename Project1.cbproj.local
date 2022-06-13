@@ -1,38 +1,45 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <BorlandProject>
 	<Transactions>
-    <Transaction>2022/06/01 21.00.00.000.788,C:\Users\Harris\Documents\Embarcadero\Studio\Projects\Unit1.fmx=C:\Users\Harris\Documents\Embarcadero\Studio\Projects\Account.fmx</Transaction>
-    <Transaction>2022/06/01 21.00.00.000.112,=C:\Users\Harris\Documents\Embarcadero\Studio\Projects\Unit1.cpp</Transaction>
-    <Transaction>2022/06/01 21.00.00.000.788,C:\Users\Harris\Documents\Embarcadero\Studio\Projects\Unit1.cpp=C:\Users\Harris\Documents\Embarcadero\Studio\Projects\Account.cpp</Transaction>
-    <Transaction>2022/06/01 21.00.00.000.788,C:\Users\Harris\Documents\Embarcadero\Studio\Projects\Unit1.h=C:\Users\Harris\Documents\Embarcadero\Studio\Projects\Account.h</Transaction>
     <Transaction>2022/06/01 21.00.00.000.994,=C:\Users\Harris\Documents\Embarcadero\Studio\Projects\Project1PCH1.h</Transaction>
+    <Transaction>2022/06/01 21.00.00.000.788,C:\Users\Harris\Documents\Embarcadero\Studio\Projects\Account.h=C:\Users\Harris\Documents\Embarcadero\Studio\Projects\Unit1.h</Transaction>
+    <Transaction>2022/06/01 21.00.00.000.112,=C:\Users\Harris\Documents\Embarcadero\Studio\Projects\Unit1.cpp</Transaction>
+    <Transaction>2022/06/01 21.00.00.000.788,C:\Users\Harris\Documents\Embarcadero\Studio\Projects\Account.fmx=C:\Users\Harris\Documents\Embarcadero\Studio\Projects\Unit1.fmx</Transaction>
+    <Transaction>2022/06/01 21.00.00.000.788,C:\Users\Harris\Documents\Embarcadero\Studio\Projects\Account.cpp=C:\Users\Harris\Documents\Embarcadero\Studio\Projects\Unit1.cpp</Transaction>
+    <Transaction>2022/06/01 22.00.00.000.310,C:\Users\Harris\Documents\Embarcadero\Studio\Projects\Unit2.cpp=C:\Users\Harris\Documents\Embarcadero\Studio\Projects\Quest.cpp</Transaction>
     <Transaction>2022/06/01 22.00.00.000.471,=C:\Users\Harris\Documents\Embarcadero\Studio\Projects\Unit2.cpp</Transaction>
-    <Transaction>2022/06/01 22.00.00.000.310,C:\Users\Harris\Documents\Embarcadero\Studio\Projects\Quest.cpp=C:\Users\Harris\Documents\Embarcadero\Studio\Projects\Unit2.cpp</Transaction>
     <Transaction>2022/06/01 22.00.00.000.564,C:\Users\Harris\Documents\Embarcadero\Studio\Projects\Project1.cbproj=C:\Users\Harris\Documents\Embarcadero\Studio\Projects\Project1.cbproj</Transaction>
-    <Transaction>2022/06/01 22.00.00.000.310,C:\Users\Harris\Documents\Embarcadero\Studio\Projects\Quest.h=C:\Users\Harris\Documents\Embarcadero\Studio\Projects\Unit2.h</Transaction>
-    <Transaction>2022/06/01 22.00.00.000.310,C:\Users\Harris\Documents\Embarcadero\Studio\Projects\Quest.fmx=C:\Users\Harris\Documents\Embarcadero\Studio\Projects\Unit2.fmx</Transaction>
-    <Transaction>2022/06/03 06.00.00.000.619,C:\Users\Harris\Documents\Embarcadero\Studio\Projects\Classes.cpp=C:\Users\Harris\Documents\Embarcadero\Studio\Projects\Unit1.cpp</Transaction>
-    <Transaction>2022/06/03 06.00.00.000.619,C:\Users\Harris\Documents\Embarcadero\Studio\Projects\Classes.h=C:\Users\Harris\Documents\Embarcadero\Studio\Projects\Unit1.h</Transaction>
+    <Transaction>2022/06/01 22.00.00.000.310,C:\Users\Harris\Documents\Embarcadero\Studio\Projects\Unit2.fmx=C:\Users\Harris\Documents\Embarcadero\Studio\Projects\Quest.fmx</Transaction>
+    <Transaction>2022/06/01 22.00.00.000.310,C:\Users\Harris\Documents\Embarcadero\Studio\Projects\Unit2.h=C:\Users\Harris\Documents\Embarcadero\Studio\Projects\Quest.h</Transaction>
+    <Transaction>2022/06/03 06.00.00.000.619,C:\Users\Harris\Documents\Embarcadero\Studio\Projects\Unit1.h=C:\Users\Harris\Documents\Embarcadero\Studio\Projects\Classes.h</Transaction>
     <Transaction>2022/06/03 06.00.00.000.456,=C:\Users\Harris\Documents\Embarcadero\Studio\Projects\Unit1.cpp</Transaction>
-    <Transaction>2022/06/03 21.00.00.000.328,=C:\Users\Harris\Documents\Embarcadero\Studio\Projects\Unit2.cpp</Transaction>
-    <Transaction>2022/06/03 21.00.00.000.073,C:\Users\Harris\Documents\Embarcadero\Studio\Projects\Unit2.cpp=C:\Users\Harris\Documents\Embarcadero\Studio\Projects\GameOver.cpp</Transaction>
-    <Transaction>2022/06/03 21.00.00.000.073,C:\Users\Harris\Documents\Embarcadero\Studio\Projects\Unit2.h=C:\Users\Harris\Documents\Embarcadero\Studio\Projects\GameOver.h</Transaction>
+    <Transaction>2022/06/03 06.00.00.000.619,C:\Users\Harris\Documents\Embarcadero\Studio\Projects\Unit1.cpp=C:\Users\Harris\Documents\Embarcadero\Studio\Projects\Classes.cpp</Transaction>
+    <Transaction>2022/06/03 21.00.00.000.073,C:\Users\Harris\Documents\Embarcadero\Studio\Projects\GameOver.fmx=C:\Users\Harris\Documents\Embarcadero\Studio\Projects\Unit2.fmx</Transaction>
+    <Transaction>2022/06/03 21.00.00.000.073,C:\Users\Harris\Documents\Embarcadero\Studio\Projects\GameOver.h=C:\Users\Harris\Documents\Embarcadero\Studio\Projects\Unit2.h</Transaction>
+    <Transaction>2022/06/03 21.00.00.000.073,C:\Users\Harris\Documents\Embarcadero\Studio\Projects\GameOver.cpp=C:\Users\Harris\Documents\Embarcadero\Studio\Projects\Unit2.cpp</Transaction>
     <Transaction>2022/06/03 21.00.00.000.382,C:\Users\Harris\Documents\Embarcadero\Studio\Projects\GameOver.cpp=</Transaction>
-    <Transaction>2022/06/03 21.00.00.000.073,C:\Users\Harris\Documents\Embarcadero\Studio\Projects\Unit2.fmx=C:\Users\Harris\Documents\Embarcadero\Studio\Projects\GameOver.fmx</Transaction>
-    <Transaction>2022/06/12 15.00.00.000.315,C:\Users\Harris\Documents\Embarcadero\Studio\Projects\Unit1.h=C:\Users\Harris\Documents\Embarcadero\Studio\Projects\Robot.h</Transaction>
+    <Transaction>2022/06/03 21.00.00.000.328,=C:\Users\Harris\Documents\Embarcadero\Studio\Projects\Unit2.cpp</Transaction>
     <Transaction>2022/06/12 15.00.00.000.691,=C:\Users\Harris\Documents\Embarcadero\Studio\Projects\Unit1.cpp</Transaction>
-    <Transaction>2022/06/12 15.00.00.000.315,C:\Users\Harris\Documents\Embarcadero\Studio\Projects\Unit1.cpp=C:\Users\Harris\Documents\Embarcadero\Studio\Projects\Robot.cpp</Transaction>
+    <Transaction>2022/06/12 15.00.00.000.315,C:\Users\Harris\Documents\Embarcadero\Studio\Projects\Robot.h=C:\Users\Harris\Documents\Embarcadero\Studio\Projects\Unit1.h</Transaction>
+    <Transaction>2022/06/12 15.00.00.000.315,C:\Users\Harris\Documents\Embarcadero\Studio\Projects\Robot.cpp=C:\Users\Harris\Documents\Embarcadero\Studio\Projects\Unit1.cpp</Transaction>
     <Transaction>2022/06/12 16.00.00.000.979,C:\Users\Harris\Documents\Embarcadero\Studio\Projects\Robot.cpp=</Transaction>
-    <Transaction>2022/06/12 17.00.00.000.276,C:\Users\Harris\Documents\Embarcadero\Studio\Projects\Unit2.cpp=C:\Users\Harris\Documents\Embarcadero\Studio\Projects\Menu.cpp</Transaction>
-    <Transaction>2022/06/12 17.00.00.000.276,C:\Users\Harris\Documents\Embarcadero\Studio\Projects\Unit2.h=C:\Users\Harris\Documents\Embarcadero\Studio\Projects\Menu.h</Transaction>
-    <Transaction>2022/06/12 17.00.00.000.276,C:\Users\Harris\Documents\Embarcadero\Studio\Projects\Unit2.fmx=C:\Users\Harris\Documents\Embarcadero\Studio\Projects\Menu.fmx</Transaction>
+    <Transaction>2022/06/12 17.00.00.000.276,C:\Users\Harris\Documents\Embarcadero\Studio\Projects\Menu.fmx=C:\Users\Harris\Documents\Embarcadero\Studio\Projects\Unit2.fmx</Transaction>
     <Transaction>2022/06/12 17.00.00.000.160,=C:\Users\Harris\Documents\Embarcadero\Studio\Projects\Unit2.cpp</Transaction>
+    <Transaction>2022/06/12 17.00.00.000.276,C:\Users\Harris\Documents\Embarcadero\Studio\Projects\Menu.cpp=C:\Users\Harris\Documents\Embarcadero\Studio\Projects\Unit2.cpp</Transaction>
+    <Transaction>2022/06/12 17.00.00.000.276,C:\Users\Harris\Documents\Embarcadero\Studio\Projects\Menu.h=C:\Users\Harris\Documents\Embarcadero\Studio\Projects\Unit2.h</Transaction>
+    <Transaction>2022/06/13 22.47.49.709,=C:\Users\Harris\Documents\Embarcadero\Studio\DS_L2AC_Group5_FinalProject\Unit2.cpp</Transaction>
+    <Transaction>2022/06/13 22.48.50.025,=C:\Users\Harris\Documents\Embarcadero\Studio\DS_L2AC_Group5_FinalProject\Unit3.cpp</Transaction>
+    <Transaction>2022/06/13 22.49.31.771,C:\Users\Harris\Documents\Embarcadero\Studio\DS_L2AC_Group5_FinalProject\Win.fmx=C:\Users\Harris\Documents\Embarcadero\Studio\DS_L2AC_Group5_FinalProject\Unit3.fmx</Transaction>
+    <Transaction>2022/06/13 22.49.31.771,C:\Users\Harris\Documents\Embarcadero\Studio\DS_L2AC_Group5_FinalProject\Win.h=C:\Users\Harris\Documents\Embarcadero\Studio\DS_L2AC_Group5_FinalProject\Unit3.h</Transaction>
+    <Transaction>2022/06/13 22.49.31.771,C:\Users\Harris\Documents\Embarcadero\Studio\DS_L2AC_Group5_FinalProject\Win.cpp=C:\Users\Harris\Documents\Embarcadero\Studio\DS_L2AC_Group5_FinalProject\Unit3.cpp</Transaction>
+    <Transaction>2022/06/13 22.49.38.572,C:\Users\Harris\Documents\Embarcadero\Studio\DS_L2AC_Group5_FinalProject\Lose.cpp=C:\Users\Harris\Documents\Embarcadero\Studio\DS_L2AC_Group5_FinalProject\Unit2.cpp</Transaction>
+    <Transaction>2022/06/13 22.49.38.572,C:\Users\Harris\Documents\Embarcadero\Studio\DS_L2AC_Group5_FinalProject\Lose.h=C:\Users\Harris\Documents\Embarcadero\Studio\DS_L2AC_Group5_FinalProject\Unit2.h</Transaction>
+    <Transaction>2022/06/13 22.49.38.572,C:\Users\Harris\Documents\Embarcadero\Studio\DS_L2AC_Group5_FinalProject\Lose.fmx=C:\Users\Harris\Documents\Embarcadero\Studio\DS_L2AC_Group5_FinalProject\Unit2.fmx</Transaction>
+    <Transaction>2022/06/13 22.50.15.738,C:\Users\Harris\Documents\Embarcadero\Studio\DS_L2AC_Group5_FinalProject\Account.cpp=</Transaction>
+    <Transaction>2022/06/13 22.57.19.313,C:\Users\Harris\Documents\Embarcadero\Studio\DS_L2AC_Group5_FinalProject\Lose.cpp=</Transaction>
+    <Transaction>2022/06/13 22.57.24.983,C:\Users\Harris\Documents\Embarcadero\Studio\DS_L2AC_Group5_FinalProject\Win.cpp=</Transaction>
   </Transactions>
 	<ProjectSortOrder AutoSort="0" SortType="0">
-    <File Path="Account.cpp"/>
-    <File Path="Account.cpp"/>
-    <File Path="Account.fmx"/>
-    <File Path="Account.h"/>
     <File Path="Project1.cpp"/>
     <File Path="Project1PCH1.h"/>
     <File Path="Quest.cpp"/>
