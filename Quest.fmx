@@ -755,9 +755,9 @@ object QuestForm: TQuestForm
     end
     object PlayerNameLabel: TLabel
       StyledSettings = [Family, Style, FontColor]
-      Position.X = 80.000000000000000000
-      Position.Y = 32.000000000000000000
-      Size.Width = 136.000000000000000000
+      Position.X = 24.000000000000000000
+      Position.Y = 24.000000000000000000
+      Size.Width = 233.000000000000000000
       Size.Height = 41.000000000000000000
       Size.PlatformDefault = False
       TextSettings.Font.Size = 20.000000000000000000
@@ -837,9 +837,9 @@ object QuestForm: TQuestForm
     end
     object EnemyNameLabel: TLabel
       StyledSettings = [Family, Style, FontColor]
-      Position.X = 376.000000000000000000
+      Position.X = 368.000000000000000000
       Position.Y = 32.000000000000000000
-      Size.Width = 233.000000000000000000
+      Size.Width = 241.000000000000000000
       Size.Height = 41.000000000000000000
       Size.PlatformDefault = False
       TextSettings.Font.Size = 20.000000000000000000

@@ -1,4 +1,0 @@
-SuperAdmin,Admin9001,mod123@gmail.com
-myUser,myPass,user123@gmail.com
-User123,Pass123
-User987,Pass987
