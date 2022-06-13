@@ -16,6 +16,7 @@
 #include <FMX.Edit.hpp>
 #include <FMX.Layouts.hpp>
 #include <FMX.ListBox.hpp>
+#include <FMX.Ani.hpp>
 //---------------------------------------------------------------------------
 class TQuestForm : public TForm
 {
@@ -32,20 +33,10 @@ __published:	// IDE-managed Components
 	TLabel *PlayerDefenseLabel;
 	TLabel *PlayerHealthLabel;
 	TLabel *PlayerNameLabel;
-	TLabel *Label1;
-	TLabel *Label2;
-	TLabel *Z;
-	TLabel *Label4;
-	TCircle *ShootingCircle;
 	TLabel *MeleeLabel;
-	TLabel *ShootingLabel;
-	TCircle *MeleeCircle;
-	TCircle *ConfirmCircle;
-	TLabel *ConfirmLabel;
 	TTimer *Timer1;
 	TLabel *PlayerStanceLabel;
 	TLabel *EnemyStanceLabel;
-	TLabel *Label3;
 	TPanel *CombatPanel;
 	TPanel *SetupPanel;
 	TEdit *CardEdit;
@@ -56,7 +47,7 @@ __published:	// IDE-managed Components
 	TLabel *InstructionLabel;
 	TLabel *TitleLabel;
 	TLabel *CardShootingLabel;
-	TLabel *CardDefenseLabel;
+	TLabel *CardMeleeDefenseLabel;
 	TLabel *CardHealthLabel;
 	TLabel *CardNameLabel;
 	TLabel *CardMeleeLabel;
@@ -69,10 +60,23 @@ __published:	// IDE-managed Components
 	TLabel *Label10;
 	TLabel *Label11;
 	TLabel *Label12;
+	TImage *AntiMeleeImage;
+	TImage *AntiRangeImage;
+	TRectAnimation *RectAnimation1;
+	TImage *MeleeImage;
+	TImage *RangeImage;
+	TImage *BattleImage;
+	TImage *Image1;
+	TImage *Image2;
+	TLabel *CardShootingDefenseLabel;
+	TImage *Image3;
+	TImage *Image4;
+	TImage *Image5;
+	TImage *Image6;
 	void __fastcall ShootingCircleClick(TObject *Sender);
 	void __fastcall MeleeCircleClick(TObject *Sender);
 
-	void __fastcall ConfirmCircleClick(TObject *Sender);
+
 	void __fastcall Timer1Timer(TObject *Sender);
 	void __fastcall switchPhase();
 	void __fastcall checkDeath();
@@ -83,6 +87,12 @@ __published:	// IDE-managed Components
     void __fastcall  StartRobot();
 	void __fastcall StartPanelClick(TObject *Sender);
 	void __fastcall CardPanelClick(TObject *Sender);
+	void __fastcall BattleImageClick(TObject *Sender);
+	void __fastcall MeleeImageClick(TObject *Sender);
+	void __fastcall RangeImageClick(TObject *Sender);
+	void __fastcall Image6Click(TObject *Sender);
+	void __fastcall AntiMeleeImageClick(TObject *Sender);
+	void __fastcall AntiRangeImageClick(TObject *Sender);
 
 
 

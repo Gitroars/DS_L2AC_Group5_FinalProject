@@ -1,7 +1,8 @@
 ﻿[]
-Coordinates=616,188,59,36
+Coordinates=289,269,97,58
 Visible=True
 ExplicitSubNodes=
+LayerNames=
 
 [StageLabel]
 Coordinates=28,77,80,58
@@ -39,26 +40,8 @@ Coordinates=117,77,133,58
 [PlayerDefenseLabel]
 Coordinates=448,155,130,58
 
-[ShootingCircle]
-Coordinates=81,269,99,36
-
 [EnemyStanceLabel]
 Coordinates=616,1,126,58
-
-[Label2]
-Coordinates=261,78,53,58
-
-[ShootingLabel]
-Coordinates=289,269,97,58
-
-[Z]
-Coordinates=447,232,40,58
-
-[MeleeCircle]
-Coordinates=616,78,83,36
-
-[Label1]
-Coordinates=388,269,53,58
 
 [PlayerStanceLabel]
 Coordinates=100,77,123,58
@@ -69,15 +52,75 @@ Coordinates=22,269,55,36
 [MeleeLabel]
 Coordinates=0,0,81,58
 
-[ConfirmCircle]
-Coordinates=616,133,93,36
+[CardMeleeLabel]
+Coordinates=31,174,109,58
 
-[Label4]
-Coordinates=261,1,53,58
+[CardEdit]
+Coordinates=161,270,65,58
 
-[ConfirmLabel]
-Coordinates=190,269,91,58
+[InstructionLabel]
+Coordinates=507,270,106,58
 
-[Label3]
-Coordinates=22,269,53,58
+[MessageLabel]
+Coordinates=342,174,98,58
+
+[Label11]
+Coordinates=219,173,60,58
+
+[Label9]
+Coordinates=288,155,53,58
+
+[SetupPanel]
+Coordinates=289,366,81,36
+
+[Label5]
+Coordinates=230,270,53,58
+
+[CardNameLabel]
+Coordinates=780,1,108,58
+
+[TitleLabel]
+Coordinates=90,1,71,58
+
+[Label7]
+Coordinates=102,270,53,58
+
+[Label8]
+Coordinates=616,342,53,58
+
+[CardPanel]
+Coordinates=210,366,75,36
+
+[LootLabel]
+Coordinates=0,0,71,58
+
+[Label10]
+Coordinates=150,173,60,58
+
+[Label6]
+Coordinates=616,265,53,58
+
+[CardHealthLabel]
+Coordinates=616,188,111,58
+
+[StartPanel]
+Coordinates=131,366,75,36
+
+[StartButton]
+Coordinates=31,77,79,58
+
+[CardShootingLabel]
+Coordinates=180,78,125,58
+
+[Label12]
+Coordinates=651,419,60,58
+
+[Module Settings]
+ModelLayerNames=rfeaf
+
+[CardMeleeDefenseLabel]
+Coordinates=378,328,122,58
+
+[CombatPanel]
+Coordinates=517,366,92,36
 

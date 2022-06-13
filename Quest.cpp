@@ -486,14 +486,18 @@ void TQuestForm::switchMode(bool isPlayerAttacking){
   if(isPlayerAttacking){
    PlayerStanceLabel->Text = "Attacker";
    EnemyStanceLabel->Text = "Defender";
-   MeleeLabel->Text="Shooting";
-   ShootingLabel->Text="Melee";
+   MeleeImage->Visible=true;
+   RangeImage->Visible=true;
+   AntiMeleeImage->Visible=false;
+   AntiRangeImage->Visible=false;
  }
  else if(!isPlayerAttacking){
    PlayerStanceLabel->Text = "Defender";
    EnemyStanceLabel->Text = "Attacker";
-   ShootingLabel->Text="Anti Melee";
-   MeleeLabel->Text="Anti Shooting";
+   MeleeImage->Visible=false;
+   RangeImage->Visible=false;
+   AntiMeleeImage->Visible=true;
+   AntiRangeImage->Visible=true;
  }
 }
 
@@ -503,10 +507,7 @@ bool isPlayerAttacking = player.getPhase();
 AnsiString playerMode = player.getMode();
 player.setPhase(!isPlayerAttacking);// Switch player phase from attack to defense OR defense to attack
 
-  ShootingCircle->Visible=true;
- MeleeCircle->Visible=true;
- ShootingLabel->Visible=true;
- MeleeLabel->Visible=true;
+  
 }
 
 
@@ -537,70 +538,14 @@ void __fastcall TQuestForm::MeleeCircleClick(TObject *Sender)
  bool isPlayerAttacking = player.getPhase();
  switchMode(isPlayerAttacking);
 }
-//---------------------------------------------------------------------------
 
-
-//---------------------------------------------------------------------------
-
-
-void __fastcall TQuestForm::ConfirmCircleClick(TObject *Sender)
-{
-  //Once the battle is initiated,
-  // remove the confirmation button from sight
-  ConfirmCircle->Visible=false;
-  ConfirmLabel->Visible=false;
-  // and put the battle modes in sight instead
-  ShootingCircle->Visible=true;
-  MeleeCircle->Visible=true;
-  ShootingLabel->Visible=true;
-  MeleeLabel->Visible=true;
-
-  generatePlayerPhase();
-  // Display both parties stance from the randomly generated phase
-  if(player.getPhase()==true){
-  PlayerStanceLabel->Text = "Attacker";
-  }
-  else{
-  PlayerStanceLabel->Text = "Defender";
-  }
-  switchMode(player.getPhase());
-}
-//---------------------------------------------------------------------------
-
-
-//---------------------------------------------------------------------------
-
-
-//---------------------------------------------------------------------------
-
-
-//---------------------------------------------------------------------------
 //Periodically update the status information of health points of both parties
 void __fastcall TQuestForm::Timer1Timer(TObject *Sender)
 {
  PlayerHealthLabel->Text = player.getHealth();
  EnemyHealthLabel->Text = currentEnemy.getHealth();
 }
-//---------------------------------------------------------------------------
 
-
-//---------------------------------------------------------------------------
-
-
-
-
-//---------------------------------------------------------------------------
-
-
-
-
-
-
-//---------------------------------------------------------------------------
-
-
-
-//---------------------------------------------------------------------------
 
 void __fastcall TQuestForm::StartButtonClick(TObject *Sender)
 {
@@ -634,7 +579,8 @@ void __fastcall TQuestForm::StartPanelClick(TObject *Sender)
    CardHealthLabel->Text=newCardHealth;
    CardMeleeLabel->Text=newCardHealth;
    CardShootingLabel->Text=newCardShooting;
-   CardDefenseLabel->Text=newCardDefense;
+   CardMeleeDefenseLabel->Text=newCardDefense;
+   CardShootingDefenseLabel->Text=newCardDefense;
    //Save the card in 'inventory' text file
    fstream cardDB;
    cardDB.open("cards.txt",ios::app);
@@ -667,4 +613,75 @@ void __fastcall TQuestForm::CardPanelClick(TObject *Sender)
 
 
 
+
+
+
+
+void __fastcall TQuestForm::BattleImageClick(TObject *Sender)
+{
+//Once the battle is initiated, remove button from sight
+  BattleImage->Visible=false;
+// Put combat buttons in sight
+  MeleeImage->Visible=true;
+  RangeImage->Visible=true;
+  AntiMeleeImage->Visible=true;
+  AntiRangeImage->Visible=true;
+
+  generatePlayerPhase();
+
+  if(player.getPhase()==true){
+  PlayerStanceLabel->Text = "Attacker";
+  }
+  else{
+  PlayerStanceLabel->Text = "Defender";
+  }
+  switchMode(player.getPhase());
+}
+//---------------------------------------------------------------------------
+
+
+void __fastcall TQuestForm::MeleeImageClick(TObject *Sender)
+{
+   player.setMode("Melee");
+   engageInCombat();
+   checkDeath();
+   switchPhase();
+   switchMode(player.getPhase());
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TQuestForm::RangeImageClick(TObject *Sender)
+{
+   player.setMode("Shooting");
+   engageInCombat();
+   checkDeath();
+   switchPhase();
+   switchMode(player.getPhase());
+}
+//---------------------------------------------------------------------------
+
+
+
+
+//---------------------------------------------------------------------------
+
+void __fastcall TQuestForm::AntiMeleeImageClick(TObject *Sender)
+{
+  player.setMode("Melee");
+  engageInCombat();
+  checkDeath();
+   switchPhase();
+   switchMode(player.getPhase());
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TQuestForm::AntiRangeImageClick(TObject *Sender)
+{
+   player.setMode("Shooting");
+  engageInCombat();
+  checkDeath();
+   switchPhase();
+   switchMode(player.getPhase());
+}
+//---------------------------------------------------------------------------
 
