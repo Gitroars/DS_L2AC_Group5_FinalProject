@@ -1,4 +1,6 @@
 //---------------------------------------------------------------------------
+#include <chrono>  // to measure execution time
+#include <thread>  // to measure execution time
 #include <stdlib.h> // for RNG
 #include <time.h>   // for RNG
 #include <fmx.h>
@@ -162,6 +164,7 @@ return randomNumber;
 }
 // Seperate a string by commas and put the seperated strings into vector
 vector<string> parseCommaDelimitedString(string line){
+//std::this_thread::sleep_for(std::chrono::seconds (3));
 vector<string> result;
 stringstream s_stream(line);
 while(s_stream.good()){
@@ -173,13 +176,27 @@ return result;
 }
 
 vector<Robot> LoadRobots(){
+//auto start = std::chrono::high_resolution_clock::now();
+//std::this_thread::sleep_for(std::chrono::seconds (3));
 vector<Robot> temporaryVector;
 fstream robotDB;
 robotDB.open("robots.txt",ios::in); //Open the text file containing robots' specifications
 if(robotDB.is_open()){  //Upon successful opening,
 string line;
 while(getline(robotDB,line)){ //For each line,
+// auto start = std::chrono::high_resolution_clock::now();
  vector<string> parsedLine = parseCommaDelimitedString(line); //Divide the line based on comma.
+// auto end = std::chrono::high_resolution_clock::now();
+
+// std::chrono::duration<double, std::milli> float_ms = end - start;
+// fstream logDB;
+//   logDB.open("parseCommaDelimitedStringLog.txt",ios::app);
+//
+//   if( logDB.is_open()){ //Write the data to the text file
+//	   logDB<<float_ms.count()<<"\n";
+//	   logDB.close();
+//   }
+
  AnsiString name = parsedLine.at(0).c_str(); //First word is robot's name
  // stoi: converts string to integer
  int healthPoint = stoi(parsedLine.at(1)); //First number is health
@@ -190,16 +207,26 @@ while(getline(robotDB,line)){ //For each line,
  temporaryVector.push_back(robot);  //temporarily store it
 }
 }
+//auto end = std::chrono::high_resolution_clock::now();
+// std::chrono::duration<double, std::milli> float_ms = end - start;
+// fstream logDB;
+//   logDB.open("LoadRobotsLog.txt",ios::app);
+//
+//   if( logDB.is_open()){ //Write the data to the text file
+//	   logDB<<float_ms.count()<<"\n";
+//	   logDB.close();
+//   }
 return temporaryVector;
 }
 
- vector<int> idVector;
 
-vector<Robot> robotVector = LoadRobots();
+vector<Robot> robotVector ;
+
 
 
 
 map<AnsiString,vector<int>> GenerateCard(){
+//   std::this_thread::sleep_for(std::chrono::seconds (3));
    map<AnsiString,vector<int>> temporaryMap;
   //To choose a card randomly, use a random index
    int randomIndex = generateRandomNumber(robotVector.size());
@@ -217,6 +244,7 @@ map<AnsiString,vector<int>> GenerateCard(){
 
 
 map<AnsiString,vector<int>>  LoadCards(){ //loading owned cards
+std::this_thread::sleep_for(std::chrono::seconds (3));
 map<AnsiString,vector<int>> temporaryMap;
 fstream cardDB;
 cardDB.open("cards.txt",ios::in);
@@ -257,8 +285,22 @@ TQuestForm *QuestForm;
  __fastcall TQuestForm::TQuestForm(TComponent* Owner)
  : TForm(Owner)
 {
+//auto start = std::chrono::high_resolution_clock::now();
+robotVector = LoadRobots();
+//auto end = std::chrono::high_resolution_clock::now();
+// std::chrono::duration<double, std::milli> float_ms = end - start;
+// fstream logDB;
+//   logDB.open("LoadRobotsLog.txt",ios::app);
+//
+//   if( logDB.is_open()){ //Write the data to the text file
+//	   logDB<<float_ms.count()<<"\n";
+//	   logDB.close();
+//   }
+
     StageLabel->Text=currentStage;
 //Create a list of enemy
+//auto start = std::chrono::high_resolution_clock::now();
+//std::this_thread::sleep_for(std::chrono::seconds (3));
 	Enemy e1("Bandit",15,10,10,10);
 	Enemy e2("Bandit Lieutenant",20,12,12,12);
 	Enemy e3("Bandit Captain",25,15,15,15);
@@ -268,6 +310,16 @@ TQuestForm *QuestForm;
 
 
 	currentEnemy = enemies.front(); //Challenge the first one in the queue
+	enemies.pop(); //To prevent being called again
+//	auto end = std::chrono::high_resolution_clock::now();
+//     std::chrono::duration<double, std::milli> float_ms = end - start;
+// fstream logDB;
+//   logDB.open("QueueLog.txt",ios::app);
+//
+//   if( logDB.is_open()){ //Write the data to the text file
+//	   logDB<<float_ms.count()<<"\n";
+//	   logDB.close();
+//   }
 
 
 
@@ -280,19 +332,21 @@ TQuestForm *QuestForm;
 	EnemyMeleeDefenseLabel->Text = currentEnemy.getDefense();
     EnemyRangeDefenseLabel->Text = currentEnemy.getDefense();
 
-	enemies.pop(); //To prevent being called again
+
 
 
 }
  
  void __fastcall TQuestForm:: StartRobot(){
 	 AnsiString rawName= CardEdit->Text; //Get user input from editable text field
+	 cardIt = cardMap.find(rawName);
 	 //Find reference: https://thispointer.com/how-check-if-a-given-key-exists-in-a-map-c/
-	 cardIt = cardMap.find(rawName); // Find the element with key [cardName]
+	 
+	  // Find the element with key [cardName]
 	 // Check whether it exists in the cardMap or not
 	 if(cardIt!= cardMap.end()){
 	 //Element is found
-	 vector<int> cardValue = cardIt->second;  //Access the value from iterator
+	 vector<int> cardValue = cardMap.at(rawName);  //Access the value from iterator
      //Retrieve the data
 	 int health = cardValue[0];
 	 int melee = cardValue[1];
@@ -575,7 +629,17 @@ void __fastcall TQuestForm::StartButtonClick(TObject *Sender)
 
 void __fastcall TQuestForm::StartPanelClick(TObject *Sender)
 {
+//   auto start = std::chrono::high_resolution_clock::now();
    map<AnsiString,vector<int>> newCardMap = GenerateCard();
+//   auto end = std::chrono::high_resolution_clock::now();
+//	std::chrono::duration<double, std::milli> float_ms = end - start;
+// fstream logDB;
+//   logDB.open("GenerateCardLog.txt",ios::app);
+//
+//   if( logDB.is_open()){ //Write the data to the text file
+//	   logDB<<float_ms.count()<<"\n";
+//	   logDB.close();
+//   }
    map<AnsiString,vector<int>>:: iterator newCardIt = newCardMap.begin(); // Iterate through all elements in map
    AnsiString newCardName;
    int newCardHealth,newCardMelee,newCardShooting,newCardDefense;
@@ -606,7 +670,17 @@ void __fastcall TQuestForm::StartPanelClick(TObject *Sender)
 	  cardDB.close();
    }
    //Load all owned cards to map
+//    auto start = std::chrono::high_resolution_clock::now();
    cardMap = LoadCards();
+//   auto end = std::chrono::high_resolution_clock::now();
+// std::chrono::duration<double, std::milli> float_ms = end - start;
+// fstream logDB;
+//   logDB.open("LoadCardsLog.txt",ios::app);
+
+//   if( logDB.is_open()){ //Write the data to the text file
+//	   logDB<<float_ms.count()<<"\n";
+//	   logDB.close();
+//   }
    //Switch the panel screen being displayed to card details
   StartPanel->Visible=false;
   CardPanel->Visible=true;
