@@ -8,6 +8,7 @@
 #include <array>
 #include <vector>
 #include <queue>
+#include<list>
 #include <map>
 #include <iterator>
 #include <algorithm>
@@ -175,27 +176,19 @@ result.push_back(substr);
 return result;
 }
 
+
+
 vector<Robot> LoadRobots(){
-//auto start = std::chrono::high_resolution_clock::now();
-//std::this_thread::sleep_for(std::chrono::seconds (3));
+
 vector<Robot> temporaryVector;
 fstream robotDB;
 robotDB.open("robots.txt",ios::in); //Open the text file containing robots' specifications
 if(robotDB.is_open()){  //Upon successful opening,
 string line;
 while(getline(robotDB,line)){ //For each line,
-// auto start = std::chrono::high_resolution_clock::now();
- vector<string> parsedLine = parseCommaDelimitedString(line); //Divide the line based on comma.
-// auto end = std::chrono::high_resolution_clock::now();
 
-// std::chrono::duration<double, std::milli> float_ms = end - start;
-// fstream logDB;
-//   logDB.open("parseCommaDelimitedStringLog.txt",ios::app);
-//
-//   if( logDB.is_open()){ //Write the data to the text file
-//	   logDB<<float_ms.count()<<"\n";
-//	   logDB.close();
-//   }
+ vector<string> parsedLine = parseCommaDelimitedString(line); //Divide the line based on comma.
+
 
  AnsiString name = parsedLine.at(0).c_str(); //First word is robot's name
  // stoi: converts string to integer
@@ -207,15 +200,7 @@ while(getline(robotDB,line)){ //For each line,
  temporaryVector.push_back(robot);  //temporarily store it
 }
 }
-//auto end = std::chrono::high_resolution_clock::now();
-// std::chrono::duration<double, std::milli> float_ms = end - start;
-// fstream logDB;
-//   logDB.open("LoadRobotsLog.txt",ios::app);
-//
-//   if( logDB.is_open()){ //Write the data to the text file
-//	   logDB<<float_ms.count()<<"\n";
-//	   logDB.close();
-//   }
+
 return temporaryVector;
 }
 
@@ -224,9 +209,8 @@ vector<Robot> robotVector ;
 
 
 
-
 map<AnsiString,vector<int>> GenerateCard(){
-//   std::this_thread::sleep_for(std::chrono::seconds (3));
+   std::this_thread::sleep_for(std::chrono::seconds (3));
    map<AnsiString,vector<int>> temporaryMap;
   //To choose a card randomly, use a random index
    int randomIndex = generateRandomNumber(robotVector.size());
@@ -244,7 +228,7 @@ map<AnsiString,vector<int>> GenerateCard(){
 
 
 map<AnsiString,vector<int>>  LoadCards(){ //loading owned cards
-std::this_thread::sleep_for(std::chrono::seconds (3));
+//std::this_thread::sleep_for(std::chrono::seconds (3));
 map<AnsiString,vector<int>> temporaryMap;
 fstream cardDB;
 cardDB.open("cards.txt",ios::in);
@@ -276,6 +260,7 @@ Player player;
 
 
 queue<Enemy> enemies;
+list<Enemy> enemyList;
 Enemy currentEnemy;
 int currentStage=1;
 TQuestForm *QuestForm;
@@ -299,22 +284,24 @@ robotVector = LoadRobots();
 
     StageLabel->Text=currentStage;
 //Create a list of enemy
-//auto start = std::chrono::high_resolution_clock::now();
-//std::this_thread::sleep_for(std::chrono::seconds (3));
+
 	Enemy e1("Bandit",15,10,10,10);
 	Enemy e2("Bandit Lieutenant",20,12,12,12);
 	Enemy e3("Bandit Captain",25,15,15,15);
 
-	enemies.push(e1);enemies.push(e2);enemies.push(e3);
+//auto start = std::chrono::high_resolution_clock::now();
+//std::this_thread::sleep_for(std::chrono::seconds (3));
+//	enemyList.push_back(e1); enemyList.push_back(e2); enemyList.push_back(e3);
+//	currentEnemy = enemyList.front();
+//	enemyList.pop_front();
 
-
-
+    enemies.push(e1);enemies.push(e2);enemies.push(e3);
 	currentEnemy = enemies.front(); //Challenge the first one in the queue
 	enemies.pop(); //To prevent being called again
 //	auto end = std::chrono::high_resolution_clock::now();
-//     std::chrono::duration<double, std::milli> float_ms = end - start;
+//	 std::chrono::duration<double, std::milli> float_ms = end - start;
 // fstream logDB;
-//   logDB.open("QueueLog.txt",ios::app);
+//   logDB.open("ListLog.txt",ios::app);
 //
 //   if( logDB.is_open()){ //Write the data to the text file
 //	   logDB<<float_ms.count()<<"\n";
@@ -338,7 +325,10 @@ robotVector = LoadRobots();
 }
  
  void __fastcall TQuestForm:: StartRobot(){
+// auto start = std::chrono::high_resolution_clock::now();
+//std::this_thread::sleep_for(std::chrono::seconds (3));
 	 AnsiString rawName= CardEdit->Text; //Get user input from editable text field
+
 	 cardIt = cardMap.find(rawName);
 	 //Find reference: https://thispointer.com/how-check-if-a-given-key-exists-in-a-map-c/
 	 
@@ -372,7 +362,16 @@ robotVector = LoadRobots();
 	 }
 	 else{ //Warns the user of invalid card ownership
       MessageLabel->Visible=true;
-     }
+	 }
+//     	auto end = std::chrono::high_resolution_clock::now();
+//     std::chrono::duration<double, std::milli> float_ms = end - start;
+// fstream logDB;
+//   logDB.open("StartRobotLog.txt",ios::app);
+//
+//   if( logDB.is_open()){ //Write the data to the text file
+//	   logDB<<float_ms.count()<<"\n";
+//	   logDB.close();
+//   }
 
 
 
@@ -631,15 +630,7 @@ void __fastcall TQuestForm::StartPanelClick(TObject *Sender)
 {
 //   auto start = std::chrono::high_resolution_clock::now();
    map<AnsiString,vector<int>> newCardMap = GenerateCard();
-//   auto end = std::chrono::high_resolution_clock::now();
-//	std::chrono::duration<double, std::milli> float_ms = end - start;
-// fstream logDB;
-//   logDB.open("GenerateCardLog.txt",ios::app);
-//
-//   if( logDB.is_open()){ //Write the data to the text file
-//	   logDB<<float_ms.count()<<"\n";
-//	   logDB.close();
-//   }
+
    map<AnsiString,vector<int>>:: iterator newCardIt = newCardMap.begin(); // Iterate through all elements in map
    AnsiString newCardName;
    int newCardHealth,newCardMelee,newCardShooting,newCardDefense;
@@ -653,6 +644,17 @@ void __fastcall TQuestForm::StartPanelClick(TObject *Sender)
 	  newCardDefense = newCardValue.at(3);
 	  newCardIt++;
    }
+
+
+//	  auto end = std::chrono::high_resolution_clock::now();
+//	std::chrono::duration<double, std::milli> float_ms = end - start;
+// fstream logDB;
+//   logDB.open("StartPanelGenerateCardLog.txt",ios::app);
+//
+//   if( logDB.is_open()){ //Write the data to the text file
+//	   logDB<<float_ms.count()<<"\n";
+//	   logDB.close();
+//   }
    //Display the status information
 
    CardNameLabel->Text=newCardName;
