@@ -1,1 +1,0 @@
-https://www.delftstack.com/howto/cpp/cpp-timing/#use-stdchronohigh_resolution_clocknow-and-stdchronoduration_cast-to-measure-execution-time-of-a-function
