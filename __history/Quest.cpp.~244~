@@ -210,7 +210,6 @@ vector<Robot> robotVector ;
 
 
 map<AnsiString,vector<int>> GenerateCard(){
-   std::this_thread::sleep_for(std::chrono::seconds (3));
    map<AnsiString,vector<int>> temporaryMap;
   //To choose a card randomly, use a random index
    int randomIndex = generateRandomNumber(robotVector.size());
@@ -270,43 +269,34 @@ TQuestForm *QuestForm;
  __fastcall TQuestForm::TQuestForm(TComponent* Owner)
  : TForm(Owner)
 {
-//auto start = std::chrono::high_resolution_clock::now();
+
 robotVector = LoadRobots();
-//auto end = std::chrono::high_resolution_clock::now();
-// std::chrono::duration<double, std::milli> float_ms = end - start;
+
+    StageLabel->Text=currentStage;
+//Create a list of enemy
+
+	Enemy e1("Bandit",15,10,10,10);
+	Enemy e2("Bandit Lieutenant",20,12,12,12);
+	Enemy e3("Bandit Captain",25,15,15,15);
+
+//auto start = std::chrono::high_resolution_clock::now();
+//std::this_thread::sleep_for(std::chrono::seconds (3));
+//	enemyList.push_back(e1); enemyList.push_back(e2); enemyList.push_back(e3);
+//	currentEnemy = enemyList.front();
+//	enemyList.pop_front();
+
+    enemies.push(e1);enemies.push(e2);enemies.push(e3);
+	currentEnemy = enemies.front(); //Challenge the first one in the queue
+	enemies.pop(); //To prevent being called again
+//	auto end = std::chrono::high_resolution_clock::now();
+//	 std::chrono::duration<double, std::milli> float_ms = end - start;
 // fstream logDB;
-//   logDB.open("LoadRobotsLog.txt",ios::app);
+//   logDB.open("ListLog.txt",ios::app);
 //
 //   if( logDB.is_open()){ //Write the data to the text file
 //	   logDB<<float_ms.count()<<"\n";
 //	   logDB.close();
 //   }
-
-    StageLabel->Text=currentStage;
-//Create a list of enemy
-auto start = std::chrono::high_resolution_clock::now();
-std::this_thread::sleep_for(std::chrono::seconds (3));
-	Enemy e1("Bandit",15,10,10,10);
-	Enemy e2("Bandit Lieutenant",20,12,12,12);
-	Enemy e3("Bandit Captain",25,15,15,15);
-
-	enemies.push(e1);enemies.push(e2);enemies.push(e3);
-//	enemyList.push_back(e1); enemyList.push_back(e2); enemyList.push_back(e3);
-//	currentEnemy = enemyList.front();
-//	enemyList.pop_front();
-
-
-	currentEnemy = enemies.front(); //Challenge the first one in the queue
-	enemies.pop(); //To prevent being called again
-	auto end = std::chrono::high_resolution_clock::now();
-     std::chrono::duration<double, std::milli> float_ms = end - start;
- fstream logDB;
-   logDB.open("QueueLog.txt",ios::app);
-
-   if( logDB.is_open()){ //Write the data to the text file
-	   logDB<<float_ms.count()<<"\n";
-	   logDB.close();
-   }
 
 
 

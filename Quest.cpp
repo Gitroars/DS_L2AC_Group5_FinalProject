@@ -210,7 +210,6 @@ vector<Robot> robotVector ;
 
 
 map<AnsiString,vector<int>> GenerateCard(){
-   std::this_thread::sleep_for(std::chrono::seconds (3));
    map<AnsiString,vector<int>> temporaryMap;
   //To choose a card randomly, use a random index
    int randomIndex = generateRandomNumber(robotVector.size());
@@ -270,17 +269,8 @@ TQuestForm *QuestForm;
  __fastcall TQuestForm::TQuestForm(TComponent* Owner)
  : TForm(Owner)
 {
-//auto start = std::chrono::high_resolution_clock::now();
+
 robotVector = LoadRobots();
-//auto end = std::chrono::high_resolution_clock::now();
-// std::chrono::duration<double, std::milli> float_ms = end - start;
-// fstream logDB;
-//   logDB.open("LoadRobotsLog.txt",ios::app);
-//
-//   if( logDB.is_open()){ //Write the data to the text file
-//	   logDB<<float_ms.count()<<"\n";
-//	   logDB.close();
-//   }
 
     StageLabel->Text=currentStage;
 //Create a list of enemy
